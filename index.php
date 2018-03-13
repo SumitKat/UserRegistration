@@ -4,11 +4,41 @@ session_start();
 
 echo '<pre>';
 // print_r($_SESSION);
+
 $_SESSION['form_data']['email'] = isset($_POST['email']) ? $_POST['email'] : '';
+
+$_SESSION['form_data']['password'] = isset($_POST['password']) ? $_POST['password'] : '';
+
 $_SESSION['form_data']['firstName'] = isset($_POST['firstName']) ? $_POST['firstName'] : '';
+
 $_SESSION['form_data']['lastName'] = isset($_POST['lastName']) ? $_POST['lastName'] : '';
+
 $_SESSION['form_data']['dob'] = isset($_POST['dob']) ? $_POST['dob'] : '';
-$_SESSION['form_data']['phone'] = isset($_POST['Phone']) ? $_POST['phone'] : '';
+
+$_SESSION['form_data']['phone'] = isset($_POST['phone']) ? $_POST['phone'] : '';
+
+$_SESSION['form_data']['middleName'] = isset($_POST['middleName']) ? $_POST['middleName'] : '';
+
+$_SESSION['form_data']['gender'] = isset($_POST['gender']) ? $_POST['gender'] : '';
+
+$_SESSION['form_data']['interests'] = isset($_POST['interests']) ? $_POST['interests'] : '';
+
+$_SESSION['form_data']['cStreet'] = isset($_POST['cStreet']) ? $_POST['cStreet'] : '';
+
+$_SESSION['form_data']['cState'] = isset($_POST['cState']) ? $_POST['cState'] : '';
+
+$_SESSION['form_data']['cCity'] = isset($_POST['cCity']) ? $_POST['cCity'] : '';
+
+$_SESSION['form_data']['cCountry'] = isset($_POST['cCountry']) ? $_POST['cCountry'] : '';
+
+$_SESSION['form_data']['pStreet'] = isset($_POST['pStreet']) ? $_POST['pStreet'] : '';
+
+$_SESSION['form_data']['pState'] = isset($_POST['pState']) ? $_POST['pState'] : '';
+
+$_SESSION['form_data']['pCity'] = isset($_POST['pCity']) ? $_POST['pCity'] : '';
+
+$_SESSION['form_data']['pCountry'] = isset($_POST['pCountry']) ? $_POST['pCountry'] : '';
+
 
 // unset($_SESSION['form_data']);
 print_r($_SESSION);
@@ -81,8 +111,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $emailErr = "Email is required";
   } 
   else {
-    $email = test_input($_POST["email"]);
-     $_SESSION["email"]=$email;
+    $email = test_input($_POST["email"]);     
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
       $emailErr = "Invalid email format"; 
@@ -115,7 +144,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
   else {
     $phone=test_input($_POST["phone"]);
-    $_SESSION["Phone"]=$phone;
     if((preg_match("/{\+}?[^0-9]/",$phone))||(strlen($phone))!=10)
     $phoneErr = "Phone can have only numbers and should contain 10 integers";
   }
@@ -126,7 +154,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   else
   {
     $firstName=test_input($_POST["firstName"]);
-    $_SESSION["firstName"] = $firstName;
     if(!preg_match("/^[a-zA-Z ]*$/", $firstName))
       $firstNameErr = "Name can contain only letters and white spaces";
   }
@@ -136,7 +163,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
   else {
     $lastName = test_input($_POST["lastName"]);
-    $_SESSION["lastName"] = $lastName;
     if (!preg_match("/^[a-zA-Z]*$/", $lastName))
       $lastNameErr = "Name can contain only letters and white spaces";
   }
@@ -146,18 +172,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
   else {
     $dob = test_input($_POST["dob"]);
-    $_SESSION["dob"] = $dob;
     if($dob<1900-01-01)
       $dobErr="Illegal DOB";
     
   }
 
   if (empty($_POST["gender"])) {
-    $genderErr = "Gender is required";
+    $genderErr = "* Gender is required";
   }
   else {
     $gender = test_input($_POST["gender"]);
-    $_SESSION["gender"] = $gender;
   }
 
   if (empty($_POST["cStreet"])) {
@@ -165,14 +189,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
   else {
       $currentStreet = test_input($_POST["cStreet"]);
-      $_SESSION["cstreet"] = $currentStreet;
   }
   
   if (empty($_POST["cState"])) {
     $currentStateErr = "Current State is required";
   }
   else {  $currentState = test_input($_POST["cState"]);
-    $_SESSION["cstate"] = $currentState;
   }
   
   if (empty($_POST["cCountry"])) {
@@ -180,7 +202,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
   else {
     $currentCountry=test_input($_POST["cCountry"]);
-    $_SESSION["ccountry"]=$currentCountry;
   }
 
   if (empty($_POST["cCity"])) {
@@ -188,7 +209,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
   else {
     $currentCity=test_input($_POST["cCity"]);
-    $_SESSION["ccity"]=$currentCity;
   }
 
   if (empty($_POST["pStreet"])) {
@@ -196,7 +216,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   } 
   else {
       $permanentStreet=test_input($_POST["pStreet"]);
-      $_SESSION["pstreet"]=$permanentStreet;
   }
 
   if (empty($_POST["pState"])){
@@ -204,7 +223,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
   else {
     $permanentState=test_input($_POST["pState"]);
-    $_SESSION["pstate"]=$permanentState;;
   }
 
   if (empty($_POST["pCountry"])) {
@@ -212,7 +230,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
   else {
     $permanentCountry=test_input($_POST["pCountry"]);
-    $_SESSION["pcountry"]=$permanentCountry;
   }
 
   if (empty($_POST["pCity"])) {
@@ -220,7 +237,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
   else {
     $permanentCity=test_input($_POST["pCity"]);
-    $_SESSION["pcity"]=$permanentCity;
   }
 }
 
@@ -244,7 +260,7 @@ function test_input($data) {
                             <div class="credentials">
                                 <div class="form-group">
                                     <label for="Email">Email address:</label>
-                                    <input type="text" class="form-control" name="email" id="Email" value=<?php echo $_SESSION[ "email"];?>>
+                                    <input type="text" class="form-control" name="email" id="Email" value=<?php echo $_SESSION['form_data']['email'];?>>
                                     <span class="error">* <?php echo $emailErr;?></span>
                                 </div>
                                 <div class = "form-group">
@@ -259,7 +275,7 @@ function test_input($data) {
                                 </div>
                                 <div class = "form-group">
                                     <label for = "phn">Phone: </label>
-                                    <input type = "tel" class = "form-control" name = "phone" id="phn" value = <?php echo$_SESSION[ "Phone"];?>>
+                                    <input type = "tel" class = "form-control" name = "phone" id="phn" value = <?php echo$_SESSION['form_data']['phone'];?>>
                                     <span class = "error">* <?php echo $phoneErr;?></span>
                                 </div>
                             </div>
@@ -268,26 +284,27 @@ function test_input($data) {
                             <div class = "info">
                                 <div class = "form-group">
                                     <label for = "f_name">First Name:</label>
-                                    <input type = "text" class = "form-control" name = "firstName" id = "f_name" value =<?php echo $_SESSION[ "firstName"];?>>
+                                    <input type = "text" class = "form-control" name = "firstName" id = "f_name" value =<?php echo $_SESSION['form_data']['firstName'];?>>
                                     <span class = "error">*<?php echo $firstNameErr;?></span>
                                 </div>
                                 <div class = "form-group">
                                     <label for = "mname">Middle Name:</label>
-                                    <input type = "text" class = "form-control" name = "middleName" id = "mname">
+                                    <input type = "text" class = "form-control" name = "middleName" id = "mname" value=<?php echo $_SESSION['form_data']['middleName'];?>>
                                     <p></p>
                                 </div>
                                 <div class="form-group">
                                     <label for="l_name">Last Name: </label>
-                                    <input type = "text" class = "form-control" name = "lastName" id = "l_name" value =<?php echo $_SESSION[ "lastName"]?>>
+                                    <input type = "text" class = "form-control" name = "lastName" id = "l_name" value =<?php echo $_SESSION['form_data']['lastName']?>>
                                     <span class = "error">*<?php echo $lastNameErr; ?></span>
                                 </div>
                                 <div class = "form-group">
                                     <label for = "d_o_b">Date Of Birth:</label>
-                                    <input type = "Date" class = "form-control" name = "dob" id="d_o_b" value = <?php echo $_SESSION[ "dob"]?>>
+                                    <input type = "Date" class = "form-control" name = "dob" id="d_o_b" value = <?php echo $_SESSION['form_data']['dob']?>>
                                     <span class = "error">*<?php echo $dobErr;?></span>
                                 </div>
                                 <div class = "form-group">
                                     <label for = "gender">Gender:</label>
+                                    <span class="error">*</span>
                                     <div class = "radio">
                                         <label class = "radio-inline">
                                             <input type = "radio" name = "gender" value = "male" >Male
@@ -299,7 +316,7 @@ function test_input($data) {
                                             <input type = "radio" name = "gender" value = "others">Other
                                         </label>
                                     </div>
-                                    <span class="error">*<?php echo $genderErr;?></span>
+                                    <span class="error"><?php echo $genderErr;?></span>
                                 </div>
                                 <div class = "form-group">
                                     <label for = "sel1">Personal Interests:</label>
@@ -318,42 +335,43 @@ function test_input($data) {
                             <div class = "address">
                                 <div class = "form-group">
                                     <label for = "c_street">Current Street:</label>
-                                    <input type = "text" class="form-control" name="cStreet" id="c_street" value=<?php echo $_SESSION[ "cstreet"];?>>
+                                    <input type = "text" class="form-control" name="cStreet" id="c_street" value=<?php echo $_SESSION['form_data']['cStreet'];?>>
                                     <span class = "error">*<?php echo $currentStreetErr;?></span>
                                 </div>
                                 <div class = "form-group">
                                     <label for = "c_city">Current City:</label>
-                                    <input type = "text" class="form-control" name="cCity" id="c_city" value=<?php echo $_SESSION[ "ccity"];?>>
+                                    <input type = "text" class="form-control" name="cCity" id="c_city" value=<?php echo $_SESSION['form_data']['cCity'];?>>
                                     <span class = "error">*<?php echo $currentCityErr;?></span>
                                 </div>
-                                <div class = "form-group" <label for="c_state">Current State: </label>
-                                    <input type = "text" class="form-control" name="cState" id="c_state" value=<?php echo $_SESSION[ "cstate"];?>>
+                                <div class = "form-group">
+                                    <label for="c_state">Current State: </label>
+                                    <input type = "text" class="form-control" name="cState" id="c_state" value=<?php echo $_SESSION['form_data']['cState'];?>>
                                     <span class = "error">*<?php echo $currentStateErr;?></span>
                                 </div>
                                 <div class = "form-group">
                                     <label for = "c_country">Current Country: </label>
-                                    <input type = "text" class="form-control" name="cCountry" id="c_country" value=<?php echo $_SESSION[ "ccountry"];?>>
+                                    <input type = "text" class="form-control" name="cCountry" id="c_country" value=<?php echo $_SESSION['form_data']['cCountry'];?>>
                                     <span class = "error">*<?php echo $currentCountryErr;?></span>
                                 </div>
 
                                 <div class = "form-group">
                                     <label for = "p_street">Permanent Street:</label>
-                                    <input type = "text" class="form-control" name="pStreet" id="p_street" value=<?php echo $_SESSION[ "pstreet"];?>>
+                                    <input type = "text" class="form-control" name="pStreet" id="p_street" value=<?php echo $_SESSION['form_data']['pStreet'];?>>
                                     <span class = "error">*<?php echo $permanentStreetErr;?></span>
                                 </div>
                                 <div class = "form-group">
                                     <label for = "p_city">Permanent City:</label>
-                                    <input type = "text" class="form-control" name="pCity" id="p_city" value=<?php echo $_SESSION[ "pcity"];?>>
+                                    <input type = "text" class="form-control" name="pCity" id="p_city" value=<?php echo $_SESSION['form_data']['pCity'];?>>
                                     <span class = "error">*<?php echo $permanentCityErr;?></span>
                                 </div>
                                 <div class = "form-group">
                                     <label for = "p_state">Permanent State: </label>
-                                    <input type = "text" class="form-control" name="pState" id="p_state" value=<?php echo $_SESSION[ "pstate"];?>>
+                                    <input type = "text" class="form-control" name="pState" id="p_state" value=<?php echo $_SESSION['form_data']['pState'];?>>
                                     <span class = "error">*<?php echo $permanentStateErr;?></span>
                                 </div>
                                 <div class = "form-group">
                                     <label for = "p_country">Permanent Country: </label>
-                                    <input type = "text" class="form-control" name="pCountry" id="p_country" value=<?php echo $_SESSION[ "pcountry"];?>>
+                                    <input type = "text" class="form-control" name="pCountry" id="p_country" value=<?php echo $_SESSION['form_data']['pCountry'];?>>
                                     <span class = "error">*<?php echo $permanentCountryErr;?></span>
                                 </div>
                             </div>
@@ -365,7 +383,7 @@ function test_input($data) {
             </form>
 
             <footer class = "text-nowrap"> Copyright &copy; MindfireSolutions.com</footer>
-            <!-- <script src="validate.js"></script> -->
+           
     </body>
 
     </html>
