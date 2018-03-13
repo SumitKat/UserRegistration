@@ -1,185 +1,176 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <link rel="icon" href="logo.png" type="imaage/gif" sizes="16X16">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        .resize {
-            width: 150px;
-        }
-        
-        .grid-container {
-            display: grid;
-            grid-gap: 5px;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            grid-auto-rows: auto;
-            align-content: start;
-            justify-content: center;
-        }
-        
-        .grid-container > div {
-            margin-left: auto;
-            margin-right: auto;
-            padding: 20px;
-        }
-        
-        p {
+  <title>Registration Page</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+
+    .resize{
+      width: 180px;
+    }
+    p   {
             font-family: "Times New Roman";
-        }
+      }
+    nav
+      {
+        float: left;
+        max-height: 280px;
+      }
+    footer,header
+      { 
         
-        nav {
-            float: left;
-            max-height: 280px;
-        }
-        
-        footer,
-        header {
-            color: white;
-            background-color: black;
-            padding: 1em;
-            text-align: center;
-        }
-        
-        form {
-            padding: 1em;
-            overflow: hidden;
-        }
-        
-        body {
-            background-size: cover;
-        }
-    </style>
-    <title>User Registration Page</title>
+        color: white;
+        background-color: black;
+        padding: 1em;
+        text-align: center;
+      }
+    form
+      {
+          padding: 1em;
+          overflow: hidden;
+      }
+    body{
+      background-size: cover;
+    }
+  </style>
 </head>
-
 <body background="background.jpg">
-    <header>
-        <img src="logo.png" height="50px" width="50px;" align="left">
-        <p style=" text-align: center; color: white"><b>Welcome to our Registration Page</b></p>
-    </header>
-    <div>
-        <img src="banner.jpg" alt="banner" width="25%">
-    </div>
-    <form name="myForm">
-        <hr>
-        <div class="grid-container">
-
-            <div class="credentials">
-                <p><b>User Credentials:</b></p>
-                Email ID/User ID:
-                <br>
-                <input class="resize" type="text" name="email">
-                <br>
-                <p id="ema" style="color: red"></p>
-                Password:
-                <br>
-                <input class="resize" type="Password" name="Password">
-                <br>
-                <p id="pass" style="color: red"></p>
-                Re-Enter Password:
-                <br>
-                <input class="resize" type="Password" name="RePassword">
-                <br>
-                <p id="repass" style="color: red"></p>
-                Phone:
-                <br>
-                <input class="resize" type="tel" name="Phone">
-                <br>
-                <p id="ph" style="color: red"></p>
+<header style="height: 60px">
+    <label class="text-nowrap">Create Account</label>
+    <img src="logo.png" class="img-responsive" height="30px" width="30px;" align="right">
+</header>
+<form name="myForm" action="create_user.php" method="POST">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="credentials">
+                    <div class="form-group">
+                        <label for="Email">Email address:</label>
+                        <input type="email" class="form-control" name="email" id="Email">
+                        <p id="ema" style="color: red"></p>
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd">Password:</label>
+                        <input type="password" class="form-control" name="Password" id="pwd">
+                        <p id="pass" style="color: red"></p>
+                    </div>
+                    <div class="form-group">
+                        <label for="rpwd">Re Enter Password: </label>
+                        <input type="password" class="form-control" name="RePassword" id="rpwd">
+                        <p id="repass" style="color: red"></p>
+                    </div>
+                    <div class="form-group">
+                        <label for="phn">Phone: </label>
+                        <input type="tel" class="form-control" name="Phone" id="phn">
+                        <p id="ph" style="color: red"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="info">
+                    <div class="form-group">
+                        <label for="f_name">First Name:</label>
+                        <input type="text" class="form-control" name="First_name" id="f_name">
+                        <p id="fname" style="color: red"></p>
+                    </div>
+                    <div class="form-group">
+                        <label for="mname">Middle Name:</label>
+                        <input type="text" class="form-control" name="Middle_name" id="mname">
+                        <p></p>
+                    </div>
+                    <div class="form-group">
+                        <label for="l_name">Last Name: </label>
+                        <input type="text" class="form-control" name="Last_name" id="l_name">
+                        <p id="lname" style="color: red"></p>
+                    </div>
+                    <div class="form-group">
+                        <label for="d_o_b">Date Of Birth:</label>
+                        <input type="Date" class="form-control" name="DOB" id="d_o_b">
+                        <p id="dob" style="color: red"></p>
+                    </div>
+                    <div class="form-group">
+                        <label for="gender">Gender:</label>
+                        <div class="radio">
+                            <label class="radio-inline">
+                                <input type="radio" name="gender">Male
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="gender">Female
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="gender">Other
+                            </label>
+                            <p></p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="sel1">Personal Interests:</label>
+                        <select multiple class="form-control" id="sel1" name="Interests">
+                            <option>Sports</option>
+                            <option>Books</option>
+                            <option>Computer and Software</option>
+                            <option>Fashion</option>
+                            <option>Photography</option>
+                        </select>
+                    </div>
+                </div>
             </div>
 
-            <div class="info">
-                <p><b>User Information:</b></p>
-                First Name:
-                <br>
-                <input class="resize" type="text" name="First_name">
-                <br>
-                <p id="fname" style="color: red"></p>
-                Middle Name:
-                <br>
-                <input class="resize" type="text" name="Middle_name">
-                <br>
-                <p></p>
-                Last Name:
-                <br>
-                <input class="resize" type="text" name="Last_name">
-                <br>
-                <p id="lname" style="color: red"></p>
-                Date of Birth:
-                <br>
-                <input class="resize" type="Date" name="DOB">
-                <br>
-                <p id="dob" style="color: red"></p>
-                Gender:
-                <br>
-                <input type="radio" name="gender" value="Male">Male
-                <input type="radio" name="gender" value="Female">Female
-                <input type="radio" name="gender" value="Other">Other
-                <br>
-                <p></p>
-                Personal Interests:
-                <br>
-                <select name="Interests" multiple>
-                    <option class="resize" value="sport">Sports</option>
-                    <option class="resize" value="books">Books</option>
-                    <option class="resize" value="Software">Computer and Software</option>
-                    <option class="resize" value="fashion">Fashion</option>
-                    <option class="resize" value="photography">Photography</option>
-                </select>
-                <p id="select" style="color: red"></p>
-            </div>
+            <div class="col-lg-4">
+                <div class="address">
+                    <div class="form-group">
+                        <label for="c_street">Street:</label>
+                        <input type="text" class="form-control" name="Cstreet" id="c_street">
+                        <p id="cstr" style="color: red"></p>
+                    </div>
+                    <div class="form-group">
+                        <label for="c_city">City:</label>
+                        <input type="text" class="form-control" name="Ccity" id="c_city">
+                        <p id="ccty" style="color: red"></p>
+                    </div>
+                    <div class="form-group">
+                        <label for="c_state">State: </label>
+                        <input type="text" class="form-control" name="Cstate" id="c_state">
+                        <p id="cstt" style="color: red"></p>
+                    </div>
+                    <div class="form-group">
+                        <label for="c_country">Country: </label>
+                        <input type="text" class="form-control" name="Ccountry" id="c_country">
+                        <p id="ccnt" style="color: red"></p>
+                    </div>
 
-            <div class="address">
-                <p><b>Current Address:</b></p>
-                Street:
-                <br>
-                <input class="resize" type="text" name="Cstreet">
-                <br>
-                <p id="cstr" style="color: red"></p>
-                City:
-                <br>
-                <input class="resize" type="text" name="Ccity">
-                <br>
-                <p id="ccty" style="color: red"></p>
-                State:
-                <br>
-                <input class="resize" type="text" name="Cstate">
-                <br>
-                <p id="cstt" style="color: red"></p>
-                Country:
-                <br>
-                <input class="resize" type="text" name="Ccountry">
-                <p id="ccnt" style="color: red"></p>
-                <p><b>Present Address:</b></p>
-                Street:
-                <br>
-                <input class="resize" type="text" name="Pstreet">
-                <br>
-                <p id="pstr" style="color: red"></p>
-                City:
-                <br>
-                <input class="resize" type="text" name="Pcity">
-                <br>
-                <p id="pcty" style="color: red"></p>
-                State:
-                <br>
-                <input class="resize" type="text" name="Pstate">
-                <br>
-                <p id="pstt" style="color: red"></p>
-                Country:
-                <br>
-                <input class="resize" type="text" name="Pcountry">
-                <p id="pcnt" style="color: red"></p>
+                    <div class="form-group">
+                        <label for="p_street">Street:</label>
+                        <input type="text" class="form-control" name="Pstreet" id="p_street">
+                        <p id="pstr" style="color: red"></p>
+                    </div>
+                    <div class="form-group">
+                        <label for="p_city">City:</label>
+                        <input type="text" class="form-control" name="Pcity" id="p_city">
+                        <p id="pcty" style="color: red"></p>
+                    </div>
+                    <div class="form-group">
+                        <label for="p_state">State: </label>
+                        <input type="text" class="form-control" name="Pstate" id="p_state">
+                        <p id="pstt" style="color: red"></p>
+                    </div>
+                    <div class="form-group">
+                        <label for="p_country">Country: </label>
+                        <input type="text" class="form-control" name="Pcountry" id="p_country">
+                        <p id="pcnt" style="color: red"></p>
+                    </div>
+                </div>
             </div>
         </div>
-        <p align="center">
-            <button style="margin: auto; " onclick="return validate()"><b>Submit</b></button>
-        </p>
-    </form>
+    </div>
+    <input type="submit" class="btn btn-success center-block " value="Submit" onclick="return validate()">
+</form>
 
-    <footer> Copyright &copy; MindfireSolutions.com</footer>
-    <script src="validate.js"></script>
+<footer class="text-nowrap"> Copyright &copy;  MindfireSolutions.com</footer>
+<!-- <script src="validate.js"></script> -->
 </body>
-
 </html>
