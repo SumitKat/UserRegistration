@@ -61,11 +61,12 @@ if ( $conn->connect_error ) {
  $middleName = $_SESSION[ 'form_data' ][ 'middleName' ];
  $lastName = $_SESSION[ 'form_data' ][ 'lastName' ];
  
+
  $phone = $_SESSION[ 'form_data' ][ 'phone' ];
  $dob = $_SESSION[ 'form_data' ][ 'dob' ];
  $gender = $_SESSION[ 'form_data' ][ 'gender' ];
 
-
+echo "$phone";
  // echo $email.$password.$firstName.$middleName.$lastName.$phone.$dob.$gender;
 
 
@@ -85,64 +86,85 @@ if ( $conn->connect_error ) {
  	echo "Error in inserting user data".$conn->conn_error;
  }
 
-
- $currentStreet = $_SESSION[ 'form_data' ][ 'currentStreet' ];
- $curentCity = $_SESSION[ 'form_data' ][ 'curentCity' ];
- $currentState = $_SESSION[ 'form_data' ][ 'currentState' ];
- $currentCountry = $_SESSION[ 'form_data' ][ 'currentCountry' ];
-
- $sqlCurrentAddress = "INSERT INTO address ( user_id, street, state, city, country, type )
- 				       VALUES ( '$last_id', '$currentStreet', '$currentState', 'curentCity',
- 				       'currentCountry', 'current' )";
- if ( $conn->query( $sqlCurrentAddress ) === TRUE ) {
- 	echo "Current Address Data Inserted";
+ if ( $last_id==0 ) {
+ 	 echo "Email Id already registered";
  }
  else {
- 	echo "Error in inserting current address details";
+	 $currentStreet = $_SESSION[ 'form_data' ][ 'currentStreet' ];
+	 $curentCity = $_SESSION[ 'form_data' ][ 'curentCity' ];
+	 $currentState = $_SESSION[ 'form_data' ][ 'currentState' ];
+	 $currentCountry = $_SESSION[ 'form_data' ][ 'currentCountry' ];
+
+
+
+	 $sqlCurrentAddress = "INSERT INTO address ( user_id, street, state, city, country, type )
+	 				       VALUES ( '$last_id', '$currentStreet', '$currentState', 'curentCity',
+	 				       'currentCountry', 'current' )";
+
+
+
+
+	 if ( $conn->query( $sqlCurrentAddress ) === TRUE ) {
+	 	echo "Current Address Data Inserted";
+	 }
+	 else {
+	 	echo "Error in inserting current address details";
+	 }
+
+
+
+
+	 $permanentStreet = $_SESSION[ 'form_data' ][ 'permanentStreet' ];
+	 $permanetCity = $_SESSION[ 'form_data' ][ 'permanentCity' ];
+	 $permanentState = $_SESSION[ 'form_data' ][ 'permanentState' ];
+	 $permanentCountry = $_SESSION[ 'form_data' ][ 'permanentCountry' ];
+
+	 $sqlPermanentAddress = "INSERT INTO address ( user_id, street, state, city, country, type )
+	 				      VALUES ( '$last_id', '$permanentStreet', '$permanentState', 'permanentCity', 
+	 				      'permanentCountry', 'permanent' )";
+
+
+
+
+
+	 if ( $conn->query( $sqlPermanentAddress) === TRUE ) {
+	 	echo "Permanent address data inserted";
+	 } 
+	 else {
+	 	echo "Error in inserting permanent address details";
+	 }
+
+
+
+
+	 $interestLength = count( $_SESSION[ 'form_data' ][ 'interests' ] );
+	 $i = 0;
+	 $interest = "";
+
+
+
+
+	 while( $i < $interestLength-1 ) {
+	    $interest .= $_SESSION[ 'form_data' ][ 'interests' ][$i].',' ;
+	    $i++;
+	 }
+
+
+
+	 $interest .= $_SESSION[ 'form_data' ][ 'interests' ][$interestLength-1];
+	 
+	 $sqlInterest = "INSERT INTO interest ( user_id, name )
+	 				 VALUES ( '$last_id', '$interest' )";
+
+
+
+	 if ( $conn->query( $sqlInterest) === TRUE ) {
+	 	echo "Interest recorded";
+	 }
+	 else
+	 	echo "Error in recording interests";
+	 
  }
-
-
- $permanentStreet = $_SESSION[ 'form_data' ][ 'permanentStreet' ];
- $permanetCity = $_SESSION[ 'form_data' ][ 'permanentCity' ];
- $permanentState = $_SESSION[ 'form_data' ][ 'permanentState' ];
- $permanentCountry = $_SESSION[ 'form_data' ][ 'permanentCountry' ];
-
- $sqlPermanentAddress = "INSERT INTO address ( user_id, street, state, city, country, type )
- 				      VALUES ( '$last_id', '$permanentStreet', '$permanentState', 'permanentCity', 
- 				      'permanentCountry', 'permanent' )";
-
-
- if ( $conn->query( $sqlPermanentAddress) === TRUE ) {
- 	echo "Permanent address data inserted";
- } 
- else {
- 	echo "Error in inserting permanent address details";
- }
-
-
-
- $interestLength = count( $_SESSION[ 'form_data' ][ 'interests' ] );
- $i = 0;
- $interest = "";
-
-
- while( $i < $interestLength-1 ) {
-    $interest .= $_SESSION[ 'form_data' ][ 'interests' ][$i].',' ;
-    $i++;
- }
-
- $interest .= $_SESSION[ 'form_data' ][ 'interests' ][$interestLength-1];
- 
- $sqlInterest = "INSERT INTO interest ( user_id, name )
- 				 VALUES ( '$last_id', '$interest' )";
-
- if ( $conn->query( $sqlInterest) === TRUE ) {
- 	echo "Interest recorded";
- }
- else
- 	echo "Error in recording interests";
- 
-
 
 
 
