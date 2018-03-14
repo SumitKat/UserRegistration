@@ -41,7 +41,14 @@ $_SESSION['form_data']['pCountry'] = isset($_POST['pCountry']) ? $_POST['pCountr
 
 
 // unset($_SESSION['form_data']);
-print_r($_SESSION);
+$cnt=count($_SESSION['form_data']['interests']);
+$i=0;
+while ($i<$cnt) {
+  # code...
+  echo $_SESSION['form_data']['interests'][$i];
+  $i++;
+}
+
 echo '</pre>';
 ?>
 
@@ -105,6 +112,8 @@ $pass = $email =$repass=$phone=$firstName=$lastName=$dob=$gender=$currentStreet=
 $permanentStreet=$currentCity=$permanentCity=$currentCountry=$permanentCountry=
 $currentState=$permanentState="";
 
+$flag=FALSE;
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   if (empty($_POST["email"])) {
@@ -115,6 +124,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
       $emailErr = "Invalid email format"; 
+      $flag = TRUE;
     }
   }
 
@@ -125,7 +135,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $pass = test_input($_POST["password"]);
     if (strlen($pass)<6 || (!preg_match("/[a-z]/",$pass))||(!preg_match("/[A-Z]/", $pass))||(!preg_match("/[0-9]/", $pass))){
       $passErr = "Password must contain minimum of 6 characters , a lower case letter, a upper case letter and an integer"; 
-    }
+      $flag = TRUE;
+      }
   }
 
   if ((!empty($_POST["password"]))&&(empty($_POST["rePassword"]))) {
@@ -136,6 +147,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // check if e-mail address is well-formed
     if ($pass!=$repass) {
       $repassErr = "Password doesn't match"; 
+      $flag = TRUE;
     }
   }
 
@@ -144,8 +156,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
   else {
     $phone=test_input($_POST["phone"]);
-    if((preg_match("/{\+}?[^0-9]/",$phone))||(strlen($phone))!=10)
+    if((preg_match("/{\+}?[^0-9]/",$phone))||(strlen($phone))!=10) {
     $phoneErr = "Phone can have only numbers and should contain 10 integers";
+    $flag = TRUE;
+    }
   }
 
   if (empty($_POST["firstName"])){
@@ -154,8 +168,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   else
   {
     $firstName=test_input($_POST["firstName"]);
-    if(!preg_match("/^[a-zA-Z ]*$/", $firstName))
+    if(!preg_match("/^[a-zA-Z ]*$/", $firstName)) {
       $firstNameErr = "Name can contain only letters and white spaces";
+      $flag = TRUE;
+    }
   }
 
   if (empty(($_POST["lastName"]))) {
@@ -163,8 +179,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
   else {
     $lastName = test_input($_POST["lastName"]);
-    if (!preg_match("/^[a-zA-Z]*$/", $lastName))
+    if (!preg_match("/^[a-zA-Z]*$/", $lastName)){
       $lastNameErr = "Name can contain only letters and white spaces";
+      $flag = TRUE;
+    }
   }
 
   if (empty($_POST["dob"]) || !isset($_POST["dob"])) {
@@ -172,13 +190,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
   else {
     $dob = test_input($_POST["dob"]);
-    if($dob<1900-01-01)
+    if($dob<1900-01-01) {
       $dobErr="Illegal DOB";
+      $flag = TRUE;
+    }
     
   }
 
   if (empty($_POST["gender"])) {
     $genderErr = "* Gender is required";
+    $flag = TRUE;
   }
   else {
     $gender = test_input($_POST["gender"]);
@@ -186,6 +207,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   if (empty($_POST["cStreet"])) {
     $currentStreetErr = "Current Street is required";
+    $flag = TRUE;
   }
   else {
       $currentStreet = test_input($_POST["cStreet"]);
@@ -193,12 +215,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   
   if (empty($_POST["cState"])) {
     $currentStateErr = "Current State is required";
+    $flag = TRUE;
   }
   else {  $currentState = test_input($_POST["cState"]);
   }
   
   if (empty($_POST["cCountry"])) {
     $currentCountryErr = "Current Country is required";
+    $flag = TRUE;
   }
   else {
     $currentCountry=test_input($_POST["cCountry"]);
@@ -206,6 +230,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   if (empty($_POST["cCity"])) {
     $currentCityErr="Current City is required";
+    $flag = TRUE;
   }
   else {
     $currentCity=test_input($_POST["cCity"]);
@@ -213,6 +238,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   if (empty($_POST["pStreet"])) {
        $permanentStreetErr = "Permanent Street is required";
+       $flag = TRUE;
   } 
   else {
       $permanentStreet=test_input($_POST["pStreet"]);
@@ -220,6 +246,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   if (empty($_POST["pState"])){
     $permanentStateErr="Permanent State is required";
+    $flag = TRUE;
   }
   else {
     $permanentState=test_input($_POST["pState"]);
@@ -227,6 +254,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   if (empty($_POST["pCountry"])) {
     $permanentCountryErr="Permanent Country is required";
+    $flag = TRUE;
   }
   else {
     $permanentCountry=test_input($_POST["pCountry"]);
@@ -234,9 +262,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   if (empty($_POST["pCity"])) {
     $permanentCityErr="Permanent City is required";
+    $flag = TRUE;
   }
   else {
     $permanentCity=test_input($_POST["pCity"]);
+  }
+
+  if ($flag === FALSE) {
+      header("Location: mysql.php");
   }
 }
 
@@ -275,7 +308,7 @@ function test_input($data) {
                                 </div>
                                 <div class = "form-group">
                                     <label for = "phn">Phone: </label>
-                                    <input type = "tel" class = "form-control" name = "phone" id="phn" value = <?php echo$_SESSION['form_data']['phone'];?>>
+                                    <input type = "text" class = "form-control" name = "phone" id="phn" value = <?php echo$_SESSION['form_data']['phone'];?>>
                                     <span class = "error">* <?php echo $phoneErr;?></span>
                                 </div>
                             </div>
