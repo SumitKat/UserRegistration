@@ -1,3 +1,10 @@
+<?php
+session_start();
+
+?>
+
+
+
 <!DOCTYPE html>
 <html>
 
@@ -75,80 +82,81 @@
 
 <body>
     <?php
+        if (!empty($_SESSION['login'])) {
+            header("Location: dashboard.php");
+        }
+        else {
+            $emailErr = $passErr = "";
+            $email = $pass = "";
+            $flag = FALSE;
 
-        $emailErr = $passErr = "";
-        $email = $pass = "";
-        $flag = FALSE;
 
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            if(empty($_POST['loginEmail'])) {
-                $emailErr = "Email can't be empty";
-                $flag = TRUE;
-            }
-            else {
-                $email = test_input($_POST['loginEmail']);
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-                if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                    $emailErr = "Enter a valid Email";
+                if(empty($_POST["loginEmail"])) {
+                    $emailErr = "Email can't be empty";
                     $flag = TRUE;
                 }
-            }
+                else {
+                   
+                    $email = $_POST["loginEmail"];
 
-            if (empty($_POST['loginPassword'])) {
-                $passErr="Password can't be empty";
-                $flag = TRUE;
-            }
-            else {
-                $pass = test_input($_POST['loginPassword']);
-
-                if (strlen($pass)<6 || (!preg_match("/[a-z]/",$pass))||(!preg_match("/[A-Z]/", $pass))||(!preg_match("/[0-9]/", $pass))){
-                        $passErr = "Enter a Valid Password"; 
+                    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                        $emailErr = "Enter a valid Email";
                         $flag = TRUE;
+                    }
                 }
-            }
 
-        }
-
-
-        function test_input($data) {
-            $data = trim($data);
-            $data = stripslashes($data);
-            $data = htmlspecialchars($data);
-            return $data;
-        }
-
-
-        if($flag == FALSE) {
-
-                $servername = "localhost";
-                $username = "root";
-                $password = "mindfire";
-                $databaseName="myDB";
-
-                // Create connection
-                $conn = new mysqli($servername, $username, $password,$databaseName);
-
-                // Check connection
-                if ( $conn->connect_error ) {
-                    die( "Connection failed: " . $conn->connect_error );
-                } 
-
-                $sql = "SELECT id,first_name, last_name, password FROM  users WHERE email = '$email' LIMIT 1";
-                $result = $conn->query($sql);
-                if ($result->num_rows == 0) {
-                    echo "Invalid email id or Password";
+                if (empty($_POST["loginPassword"])) {
+                    $passErr="Password can't be empty";
+                    $flag = TRUE;
                 }
                 else {
-                    $row = $result->fetch_assoc();
-                    if($row['password'] == crypt($pass,'salt')) {
-                        $_SESSION['login']['id'] = $row['id'];
-                        $_SESSION['login']['firstName'] = $row['first_name'];
-                        $_SESSION['login']['lastName'] = $row['last_name'];
-                        header("Location: dashboard.php");
+                    $pass = $_POST["loginPassword"];
+
+                    if (strlen($pass)<6 || (!preg_match("/[a-z]/",$pass))||(!preg_match("/[A-Z]/", $pass))||(!preg_match("/[0-9]/", $pass))){
+                            $passErr = "Enter a Valid Password"; 
+                            $flag = TRUE;
                     }
-                    
-                }   
-        }
+                }
+            }
+
+           
+
+            if($flag == FALSE) {
+
+                    $servername = "localhost";
+                    $username = "root";
+                    $password = "mindfire";
+                    $databaseName="myDB";
+
+                    // Create connection
+                    $conn = new mysqli($servername, $username, $password, $databaseName);
+
+                    // Check connection
+                    if ( $conn->connect_error ) {
+                        die( "Connection failed: " . $conn->connect_error );
+                    } 
+
+                    $sql = "SELECT id,first_name, last_name, password FROM  users WHERE email = '$email' LIMIT 1";
+                    $result = $conn->query($sql);
+                    if ($result->num_rows == 0) {
+                        echo "Invalid email id or Password";
+                    }
+                    else {
+                        $row = $result->fetch_assoc();
+                        if($row['password'] == crypt($pass,'salt')) {
+                            $_SESSION['login']['id'] = $row['id'];
+                            $_SESSION['login']['firstName'] = $row['first_name'];
+                            $_SESSION['login']['lastName'] = $row['last_name'];
+                            header("Location: dashboard.php");
+                             // echo "$_SESSION['login']['firstName']";
+                        }
+                        
+                    }   
+
+            }
+        }    
     ?>
 
 
@@ -192,7 +200,7 @@
                        <span class="error"><?php echo $passErr;?></span>
                         <input type = "password" placeholder = "Password" class = "form-control" name = "loginPassword" id = "loginPassword">
                          
-                        <input type = "submit" name = "login" class="btn btn-primary btn-block" value = "SIGN IN" onclick = "">
+                        <input type = "submit" name = "login" class="btn btn-primary btn-block" value = "SIGN IN">
                         <br>
                     </div>
                 </div>
