@@ -44,8 +44,8 @@ $_SESSION['form_data']['pCountry'] = isset($_POST['pCountry']) ? $_POST['pCountr
 $cnt=count($_SESSION['form_data']['interests']);
 $i = 0;
 while ($i<$cnt) {
-  echo $_SESSION['form_data']['interests'][$i];
-  $i++;
+    echo $_SESSION['form_data']['interests'][$i];
+    $i++;
 }
 
 echo '</pre>';
@@ -73,12 +73,7 @@ echo '</pre>';
             p {
                 font-family: "Times New Roman";
             }
-            
-            /*nav {
-                float: left;
-                max-height: 280px;
-            }*/
-            
+
             footer,
             header {
                 color: white;
@@ -91,7 +86,7 @@ echo '</pre>';
                 padding: 1em;
                 overflow: hidden;
             }
-            
+
             body {
                 background-size: cover;
             }
@@ -111,172 +106,150 @@ $pass = $email =$repass=$phone=$firstName=$lastName=$dob=$gender=$currentStreet=
 $permanentStreet=$currentCity=$permanentCity=$currentCountry=$permanentCountry=
 $currentState=$permanentState="";
 
-$flag=FALSE;
+$flag=false;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-  if (empty($_POST["email"])) {
-    $emailErr = "Email is required";
-  } 
-  else {
-    $email = test_input($_POST["email"]);     
-
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-      $emailErr = "Invalid email format"; 
-      $flag = TRUE;
+    if (empty($_POST["email"])) {
+        $emailErr = "Email is required";
+    } else {
+        $email = testInput($_POST["email"]);
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+              $emailErr = "Invalid email format";
+              $flag = true;
+        }
     }
-  }
-
-  if (empty($_POST["password"])) {
-    $passErr = "Password is required";
-  }
-  else {
-    $pass = test_input($_POST["password"]);
-    if (strlen($pass)<6 || (!preg_match("/[a-z]/",$pass))||(!preg_match("/[A-Z]/", $pass))||(!preg_match("/[0-9]/", $pass))){
-      $passErr = "Password must contain minimum of 6 characters , a lower case letter, a upper case letter and an integer"; 
-      $flag = TRUE;
-      }
-  }
-
-  if ((!empty($_POST["password"]))&&(empty($_POST["rePassword"]))) {
-    $repassErr = "Please ReEnter Password";
-  } 
-  else {
-    $repass= test_input($_POST["rePassword"]);
-    // check if e-mail address is well-formed
-    if ($pass!=$repass) {
-      $repassErr = "Password doesn't match"; 
-      $flag = TRUE;
+    if (empty($_POST["password"])) {
+        $passErr = "Password is required";
+    } else {
+        $pass = testInput($_POST["password"]);
+        if (strlen($pass)<6 || (!preg_match("/[a-z]/", $pass))||(!preg_match("/[A-Z]/", $pass))||(!preg_match("/[0-9]/", $pass))) {
+              $passErr = "Password must contain minimum of 6 characters , a lower case letter, a upper case letter and an integer";
+              $flag = true;
+        }
     }
-  }
 
-  if (empty($_POST["phone"])) {
-    $phoneErr = "Phone is required" ;
-  }
-  else {
-    $phone=test_input($_POST["phone"]);
-    if(preg_match("/([+]\d{2})?(\d{3}){2}\d{4}/g",$phone)) {
-    $phoneErr = "Phone can have only numbers and should contain 10 integers";
-    $flag = TRUE;
+    if ((!empty($_POST["password"]))&&(empty($_POST["rePassword"]))) {
+        $repassErr = "Please ReEnter Password";
+    } else {
+        $repass= testInput($_POST["rePassword"]);
+        // check if e-mail address is well-formed
+        if ($pass!=$repass) {
+            $repassErr = "Password doesn't match";
+            $flag = true;
+        }
     }
-  }
+    if (empty($_POST["phone"])) {
+        $phoneErr = "Phone is required" ;
+    } else {
+        $phone=testInput($_POST["phone"]);
+        if (preg_match("/([+]\d{2})?(\d{3}){2}\d{4}/g", $phone)) {
+            $phoneErr = "Phone can have only numbers and should contain 10 integers";
+            $flag = true;
+        }
+    }
 
-  if (empty($_POST["firstName"])){
-    $firstNameErr = "First name is required";
-  }
-  else
-  {
-    $firstName=test_input($_POST["firstName"]);
-    if(!preg_match("/^[a-zA-Z ]*$/", $firstName)) {
-      $firstNameErr = "Name can contain only letters and white spaces";
-      $flag = TRUE;
+    if (empty($_POST["firstName"])) {
+          $firstNameErr = "First name is required";
+    } else {
+        $firstName=testInput($_POST["firstName"]);
+        if (!preg_match("/^[a-zA-Z ]*$/", $firstName)) {
+            $firstNameErr = "Name can contain only letters and white spaces";
+            $flag = true;
+        }
     }
-  }
 
-  if (empty(($_POST["lastName"]))) {
-    $lastNameErr = "Last name is required";
-  }
-  else {
-    $lastName = test_input($_POST["lastName"]);
-    if (!preg_match("/^[a-zA-Z]*$/", $lastName)){
-      $lastNameErr = "Name can contain only letters and white spaces";
-      $flag = TRUE;
+    if (empty(($_POST["lastName"]))) {
+        $lastNameErr = "Last name is required";
+    } else {
+        $lastName = testInput($_POST["lastName"]);
+        if (!preg_match("/^[a-zA-Z]*$/", $lastName)) {
+            $lastNameErr = "Name can contain only letters and white spaces";
+            $flag = true;
+        }
     }
-  }
 
-  if (empty($_POST["dob"]) || !isset($_POST["dob"])) {
-    $dobErr = "DOB is required";
-  }
-  else {
-    $dob = test_input($_POST["dob"]);
-    if($dob<1900-01-01) {
-      $dobErr="Illegal DOB";
-      $flag = TRUE;
-    }
+    if (empty($_POST["dob"]) || !isset($_POST["dob"])) {
+        $dobErr = "DOB is required";
+    } else {
+        $dob = testInput($_POST["dob"]);
+        if ($dob<1900-01-01) {
+            $dobErr="Illegal DOB";
+            $flag = true;
+        }
     
-  }
+    }
 
-  if (empty($_POST["gender"])) {
-    $genderErr = "* Gender is required";
-    $flag = TRUE;
-  }
-  else {
-    $gender = test_input($_POST["gender"]);
-  }
+    if (empty($_POST["gender"])) {
+        $genderErr = "* Gender is required";
+        $flag = true;
+    } else {
+        $gender = testInput($_POST["gender"]);
+    }
 
-  if (empty($_POST["cStreet"])) {
-    $currentStreetErr = "Current Street is required";
-    $flag = TRUE;
-  }
-  else {
-      $currentStreet = test_input($_POST["cStreet"]);
-  }
+    if (empty($_POST["cStreet"])) {
+        $currentStreetErr = "Current Street is required";
+        $flag = true;
+    } else {
+        $currentStreet = testInput($_POST["cStreet"]);
+    }
   
-  if (empty($_POST["cState"])) {
-    $currentStateErr = "Current State is required";
-    $flag = TRUE;
-  }
-  else {  $currentState = test_input($_POST["cState"]);
-  }
+    if (empty($_POST["cState"])) {
+        $currentStateErr = "Current State is required";
+        $flag = true;
+    } else {
+          $currentState = testInput($_POST["cState"]);
+    }
   
-  if (empty($_POST["cCountry"])) {
-    $currentCountryErr = "Current Country is required";
-    $flag = TRUE;
-  }
-  else {
-    $currentCountry=test_input($_POST["cCountry"]);
-  }
+    if (empty($_POST["cCountry"])) {
+        $currentCountryErr = "Current Country is required";
+        $flag = true;
+    } else {
+        $currentCountry=testInput($_POST["cCountry"]);
+    }
+    if (empty($_POST["cCity"])) {
+        $currentCityErr="Current City is required";
+        $flag = true;
+    } else {
+        $currentCity = testInput($_POST["cCity"]);
+    }
 
-  if (empty($_POST["cCity"])) {
-    $currentCityErr="Current City is required";
-    $flag = TRUE;
-  }
-  else {
-    $currentCity=test_input($_POST["cCity"]);
-  }
+    if (empty($_POST["pStreet"])) {
+         $permanentStreetErr = "Permanent Street is required";
+         $flag = true;
+    } else {
+        $permanentStreet=testInput($_POST["pStreet"]);
+    }
 
-  if (empty($_POST["pStreet"])) {
-       $permanentStreetErr = "Permanent Street is required";
-       $flag = TRUE;
-  } 
-  else {
-      $permanentStreet=test_input($_POST["pStreet"]);
-  }
-
-  if (empty($_POST["pState"])){
-    $permanentStateErr="Permanent State is required";
-    $flag = TRUE;
-  }
-  else {
-    $permanentState=test_input($_POST["pState"]);
-  }
-
-  if (empty($_POST["pCountry"])) {
-    $permanentCountryErr="Permanent Country is required";
-    $flag = TRUE;
-  }
-  else {
-    $permanentCountry=test_input($_POST["pCountry"]);
-  }
-
-  if (empty($_POST["pCity"])) {
-    $permanentCityErr="Permanent City is required";
-    $flag = TRUE;
-  }
-  else {
-    $permanentCity=test_input($_POST["pCity"]);
-  }
-
-  if ($flag === FALSE) {
-      header("Location: mysql.php");
-  }
+    if (empty($_POST["pState"])) {
+        $permanentStateErr="Permanent State is required";
+        $flag = true;
+    } else {
+        $permanentState=testInput($_POST["pState"]);
+    }
+    if (empty($_POST["pCountry"])) {
+        $permanentCountryErr="Permanent Country is required";
+        $flag =true;
+    } else {
+        $permanentCountry=testInput($_POST["pCountry"]);
+    }
+    if (empty($_POST["pCity"])) {
+        $permanentCityErr="Permanent City is required";
+        $flag = true;
+    } else {
+        $permanentCity=testInput($_POST["pCity"]);
+    }
+    if ($flag === false) {
+        header("Location: mysql.php");
+    }
 }
 
-function test_input($data) {
-  $data = trim($data);
-  $data = stripslashes($data);
-  $data = htmlspecialchars($data);
-  return $data;
+function testInput($data)
+{
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
 }
 ?>
 

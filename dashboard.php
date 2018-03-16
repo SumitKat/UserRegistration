@@ -1,16 +1,11 @@
 <?php
 session_start();
 
-if ( empty($_SESSION['login']) )
-{
+if (empty($_SESSION['login'])) {
     header("Location: login.php");
-}
-else
-{
-  	$firstName = $_SESSION['login']['firstName'];
-  	$lastName = $_SESSION['login']['lastName'];
-	// echo "Welcome $firstName $lastName";
-
+} else {
+    $firstName = $_SESSION['login']['firstName'];
+    $lastName = $_SESSION['login']['lastName'];
 }
 
   $servername = "localhost";
@@ -19,29 +14,27 @@ else
   $databaseName="myDB";
 
   // Create connection
-  $conn = new mysqli($servername, $username, $password,$databaseName);
+  $conn = new mysqli($servername, $username, $password, $databaseName);
 
   // Check connection
-  if ( $conn->connect_error ) {
-      die( "Connection failed: " . $conn->connect_error );
-  } 
+if ($conn->connect_error) {
+    die( "Connection failed: " . $conn->connect_error );
+}
 
   $id =$_SESSION['login']['id'];
-
   $userInfo = "SELECT  middle_name, email, phone, dob, gender FROM  users WHERE id = '$id' LIMIT 1";
   $result = $conn->query($userInfo);
   
-  if ( $result->num_rows == 0 ) {
+if ($result->num_rows == 0) {
     header("Location: login.php");
-  } 
-  else {
-      $row = $result->fetch_assoc();
-      $email = $row['email'];
-      $middleName = $row['middle_name'];
-      $phone = $row['phone'];
-      $dob = $row['dob'];
-      $gender = $row['gender'];
-  }
+} else {
+    $row = $result->fetch_assoc();
+    $email = $row['email'];
+    $middleName = $row['middle_name'];
+    $phone = $row['phone'];
+    $dob = $row['dob'];
+    $gender = $row['gender'];
+}
 
   $userInterests = "SELECT name FROM interest WHERE user_id ='$id' LIMIT 1";
   $resultInterest = $conn->query($userInterests);
@@ -72,7 +65,7 @@ else
 
 ?>
 
-	<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <!-- Theme Made By www.w3schools.com - No Copyright -->
@@ -134,7 +127,7 @@ else
                     <li><a href = "#">About Us</a></li>
                 </ul>
                 <ul class = "nav navbar-nav navbar-right">
-                    <li><a href = "login.php"><span class="glyphicon glyphicon-off"></span> Log Out</a></li>
+                    <li><a href="logout.php"><span class="glyphicon glyphicon-off"></span> Log Out</a></li>
                 </ul>
             </div>
         </div>
@@ -159,13 +152,13 @@ else
   <h3 class="margin">Where To Find Me?</h3><br>
   <div class="row">
     <div class="col-sm-6">
-      <h4 class="margin">Permanent Address</h5>
+       <h4 class="margin">Permanent Address</h5>
        <p><?php echo $pStreet.",".$pCity.",".$pState.",".$pCountry?></p>
-      <img src="bird.jpg" class="img-responsive margin" style="width:100%" alt="Image">
+       <img src="bird.jpg" class="img-responsive margin" style="width:100%" alt="Image">
     </div>
     <div class="col-sm-6"> 
       <h4>Current Address</h4>
-     <p><?php echo $cStreet.",".$cCity.",".$cState.",".$cCountry?></p>
+      <p><?php echo $cStreet.",".$cCity.",".$cState.",".$cCountry?></p>
       <img src="bird.jpg" class="img-responsive margin" style="width:100%" alt="Image">
     </div>
   </div>
