@@ -44,9 +44,7 @@ session_start();
                 padding: 1em;
                 text-align: center;
                 opacity: 0.9;
-                align-self: bottom
-                
-                    
+                align-self: bottom     
             }
         
         .bg-1 {

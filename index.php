@@ -276,12 +276,6 @@ function testInput($data)
             </div>
         </div>
     </nav>
-
-            <!-- <header style="height: 60px">
-                <label class="text-nowrap">Create Account</label>
-                <img src="logo.png" class="img-responsive" height="30px" width="30px;" align="right">
-            </header> -->
-           <!--  <p style="margin-left: 20px"><span class="error"> * required field.</span></p> -->
             <form class="center-block" name="myForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
                 <div class="container-fluid bg-1">
                     <div class="row">
