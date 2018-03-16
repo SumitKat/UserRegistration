@@ -99,7 +99,7 @@ session_start();
                 }
                 else {
                    
-                    $email = $_POST["loginEmail"];
+                    $email =test_input( $_POST["loginEmail"]);
 
                     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                         $emailErr = "Enter a valid Email";
@@ -112,7 +112,7 @@ session_start();
                     $flag = TRUE;
                 }
                 else {
-                    $pass = $_POST["loginPassword"];
+                    $pass = test_input($_POST["loginPassword"]);
 
                     if (strlen($pass)<6 || (!preg_match("/[a-z]/",$pass))||(!preg_match("/[A-Z]/", $pass))||(!preg_match("/[0-9]/", $pass))){
                             $passErr = "Enter a Valid Password"; 
@@ -141,7 +141,7 @@ session_start();
                     $sql = "SELECT id,first_name, last_name, password FROM  users WHERE email = '$email' LIMIT 1";
                     $result = $conn->query($sql);
                     if ($result->num_rows == 0) {
-                        echo "Invalid email id or Password";
+                        $passErr = "Invalid email id or Password";
                     }
                     else {
                         $row = $result->fetch_assoc();
@@ -157,6 +157,13 @@ session_start();
 
             }
         }    
+
+        function test_input($data) {
+              $data = trim($data);
+              $data = stripslashes($data);
+              $data = htmlspecialchars($data);
+              return $data;
+        }
     ?>
 
 
@@ -186,7 +193,7 @@ session_start();
         </div>
     </nav>
 
-    <form class = "center-block" name = "loginForm" action = "<?php echo htmlspecialchars($_SERVER[" PHP_SELF "]);?>" method = "POST">
+    <form class = "center-block" name = "loginForm" action = "<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method = "POST">
     <div class = "container-fluid text-center bg-1 ">
         <div class = "card col-lg-3  col-lg-offset-0 col-md-4 col-md-offset-4 col-sm-offset-3 col-sm-6">
             <div class = "row">
@@ -194,10 +201,10 @@ session_start();
                     <div class = "form-group bg-2">
                         <br>
                         <label> SIGN IN TO MINDFIRE</label><br>
-                        <span class="error"><?php echo $emailErr;?></span>
+                        <span class="error"><?php echo isset($emailErr) ? $emailErr : '';?></span>
                         <input class = "form-control" placeholder="Email" type = "email" name="loginEmail" id = "loginEmail" autofocus>
                         
-                       <span class="error"><?php echo $passErr;?></span>
+                       <span class="error"><?php echo isset($passErr) ? $passErr : '';?></span>
                         <input type = "password" placeholder = "Password" class = "form-control" name = "loginPassword" id = "loginPassword">
                          
                         <input type = "submit" name = "login" class="btn btn-primary btn-block" value = "SIGN IN">

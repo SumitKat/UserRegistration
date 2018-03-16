@@ -3,7 +3,6 @@ session_start();
 echo "<pre>";
 print_r($_SESSION);
 echo "</pre>";
-
 $servername = "localhost";
 $username = "root";
 $password = "mindfire";
@@ -90,16 +89,16 @@ echo "$phone";
  	 echo "Email Id already registered";
  }
  else {
-	 $currentStreet = $_SESSION[ 'form_data' ][ 'currentStreet' ];
-	 $curentCity = $_SESSION[ 'form_data' ][ 'curentCity' ];
-	 $currentState = $_SESSION[ 'form_data' ][ 'currentState' ];
-	 $currentCountry = $_SESSION[ 'form_data' ][ 'currentCountry' ];
+	 $currentStreet = $_SESSION[ 'form_data' ][ 'cStreet' ];
+	 $curentCity = $_SESSION[ 'form_data' ][ 'cCity' ];
+	 $currentState = $_SESSION[ 'form_data' ][ 'cState' ];
+	 $currentCountry = $_SESSION[ 'form_data' ][ 'cCountry' ];
 
 
 
 	 $sqlCurrentAddress = "INSERT INTO address ( user_id, street, state, city, country, type )
-	 				       VALUES ( '$last_id', '$currentStreet', '$currentState', 'curentCity',
-	 				       'currentCountry', 'current' )";
+	 				       VALUES ( '$last_id', '$currentStreet', '$currentState', '$curentCity',
+	 				       '$currentCountry', 'current' )";
 
 
 
@@ -114,14 +113,15 @@ echo "$phone";
 
 
 
-	 $permanentStreet = $_SESSION[ 'form_data' ][ 'permanentStreet' ];
-	 $permanetCity = $_SESSION[ 'form_data' ][ 'permanentCity' ];
-	 $permanentState = $_SESSION[ 'form_data' ][ 'permanentState' ];
-	 $permanentCountry = $_SESSION[ 'form_data' ][ 'permanentCountry' ];
+	 $permanentStreet = $_SESSION[ 'form_data' ][ 'pStreet' ];
+	 $permanentCity = $_SESSION[ 'form_data' ][ 'pCity' ];
+
+	 $permanentState = $_SESSION[ 'form_data' ][ 'pState' ];
+	 $permanentCountry = $_SESSION[ 'form_data' ][ 'pCountry' ];
 
 	 $sqlPermanentAddress = "INSERT INTO address ( user_id, street, state, city, country, type )
-	 				      VALUES ( '$last_id', '$permanentStreet', '$permanentState', 'permanentCity', 
-	 				      'permanentCountry', 'permanent' )";
+	 				      VALUES ( '$last_id', '$permanentStreet', '$permanentState', '$permanentCity', 
+	 				      '$permanentCountry', 'permanent' )";
 
 
 

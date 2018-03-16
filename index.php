@@ -2,7 +2,7 @@
 // Start the session
 session_start();
 
-echo '<pre>';
+// echo '<pre>';
 // print_r($_SESSION);
 
 $_SESSION['form_data']['email'] = isset($_POST['email']) ? $_POST['email'] : '';
@@ -42,9 +42,8 @@ $_SESSION['form_data']['pCountry'] = isset($_POST['pCountry']) ? $_POST['pCountr
 
 // unset($_SESSION['form_data']);
 $cnt=count($_SESSION['form_data']['interests']);
-$i=0;
+$i = 0;
 while ($i<$cnt) {
-  # code...
   echo $_SESSION['form_data']['interests'][$i];
   $i++;
 }
@@ -75,10 +74,10 @@ echo '</pre>';
                 font-family: "Times New Roman";
             }
             
-            nav {
+            /*nav {
                 float: left;
                 max-height: 280px;
-            }
+            }*/
             
             footer,
             header {
@@ -281,13 +280,37 @@ function test_input($data) {
 }
 ?>
 
-            <header style="height: 60px">
+          <nav class = "navbar navbar-inverse">
+        <div class = "container-fluid">
+            <div class = "navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class = "icon-bar"></span>
+                    <span class = "icon-bar"></span>
+                    <span class = "icon-bar"></span>
+                </button>
+                <a class = "navbar-brand" href= "#" >Mindfire Solutions</a>
+            </div>
+            <div class = "collapse navbar-collapse" id="myNavbar">
+                <ul class = "nav navbar-nav">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href = "#">Contact Us</a></li>
+                    <li><a href = "#">Our Products</a></li>
+                    <li><a href = "#">About Us</a></li>
+                </ul>
+                <ul class = "nav navbar-nav navbar-right">
+                    <li><a href = "login.php"><span class="glyphicon glyphicon-user"></span> Log In</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+            <!-- <header style="height: 60px">
                 <label class="text-nowrap">Create Account</label>
                 <img src="logo.png" class="img-responsive" height="30px" width="30px;" align="right">
-            </header>
-            <p style="margin-left: 20px"><span class="error"> * required field.</span></p>
-            <form name="myForm" action="<?php echo htmlspecialchars($_SERVER[" PHP_SELF "]);?>" method="POST">
-                <div class="container-fluid">
+            </header> -->
+           <!--  <p style="margin-left: 20px"><span class="error"> * required field.</span></p> -->
+            <form class="center-block" name="myForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
+                <div class="container-fluid bg-1">
                     <div class="row">
                         <div class="col-lg-4">
                             <div class="credentials">
