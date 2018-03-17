@@ -9,9 +9,6 @@ session_start();
 <html>
 
 <head>
-
-
-
     <title>Login</title>
     <meta charset = "utf-8">
     <meta name = "viewport" content="width=device-width, initial-scale=1">
@@ -19,17 +16,14 @@ session_start();
     <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <style>
-
         @media only screen and (min-width: 1200px) {
             .bg-1 {
             color: #ffffff;
             display: flex;
             align-items: center;
             justify-content: center;
-
+            }
         }
-        }
-
         body {
             background: url(loginbcg.jpg) no-repeat center center fixed;
             -webkit-background-size: cover;
@@ -37,20 +31,18 @@ session_start();
             -o-background-size: cover;
             background-size: cover;
         }
-
-         footer {
-                color: white;
-                background-color: black;
-                padding: 1em;
-                text-align: center;
-                opacity: 0.9;
-                align-self: bottom     
-            }
-        
+        footer {
+            color: white;
+            background-color: black;
+            padding: 1em;
+            text-align: center;
+            opacity: 0.9;
+            align-self: bottom     
+        }
         .bg-1 {
             color: #ffffff;
             margin-top: 16%;
-            }
+        }
         
         .card {
             opacity: 0.8;
@@ -62,21 +54,17 @@ session_start();
         }
 
         .error {
-                color: #ff0000;
-            }
+            color: #ff0000;
+        }
         
-        @media only screen and (max-width: 600px) {
-            
+        @media only screen and (max-width: 600px) {   
             .bg-1 {
                 margin-top: 25%;
-                
             }
         
         }
     </style>
-
 </head>
-
 <body>
 <?php
 if (!empty($_SESSION['login'])) {
@@ -86,9 +74,7 @@ if (!empty($_SESSION['login'])) {
     $email = $pass = "";
     $flag = false;
 
-
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
         if (empty($_POST["loginEmail"])) {
             $emailErr = "Email can't be empty";
             $flag = true;

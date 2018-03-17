@@ -39,8 +39,6 @@ $_SESSION['form_data']['pCity'] = isset($_POST['pCity']) ? $_POST['pCity'] : '';
 
 $_SESSION['form_data']['pCountry'] = isset($_POST['pCountry']) ? $_POST['pCountry'] : '';
 
-
-// unset($_SESSION['form_data']);
 $cnt=count($_SESSION['form_data']['interests']);
 $i = 0;
 while ($i<$cnt) {
@@ -51,51 +49,49 @@ while ($i<$cnt) {
 echo '</pre>';
 ?>
 
-    <!DOCTYPE html>
-    <html lang="en">
-
-    <head>
-        <title>Create Account</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <style>
-            .error {
-                color: red;
-            }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Create Account</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        .error {
+            color: red;
+        }
             
-            .resize {
-                width: 180px;
-            }
+        .resize {
+            width: 180px;
+        }
             
-            p {
-                font-family: "Times New Roman";
-            }
+        p {
+            font-family: "Times New Roman";
+        }
 
-            footer,
-            header {
-                color: white;
-                background-color: black;
-                padding: 1em;
-                text-align: center;
-            }
+        footer,
+        header {
+            color: white;
+            background-color: black;
+            padding: 1em;
+            text-align: center;
+        }
             
-            form {
-                padding: 1em;
-                overflow: hidden;
-            }
+        form {
+            padding: 1em;
+            overflow: hidden;
+        }
 
-            body {
-                background-size: cover;
-            }
-        </style>
-    </head>
+        body {
+            background-size: cover;
+        }
+    </style>
+</head>
+<body background="background.jpg">
 
-    <body background="background.jpg">
-
-        <?php
+<?php
 // define variables and set to empty values
 $passErr = $emailErr = $repassErr=$phoneErr=$firstNameErr=$lastNameErr=$dobErr=
 $genderErr=$currentStreetErr=$permanentStreetErr=$currentCityErr=

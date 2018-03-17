@@ -3,9 +3,6 @@ session_start();
 
 if (empty($_SESSION['login'])) {
     header("Location: login.php");
-} else {
-    $firstName = $_SESSION['login']['firstName'];
-    $lastName = $_SESSION['login']['lastName'];
 }
 
 $servername = "localhost";
@@ -22,13 +19,15 @@ if ($conn->connect_error) {
 }
 
 $id =$_SESSION['login']['id'];
-$userInfo = "SELECT  middle_name, email, phone, dob, gender FROM  users WHERE id = '$id' LIMIT 1";
+$userInfo = "SELECT  first_name, last_name, middle_name, email, phone, dob, gender FROM  users WHERE id = '$id' LIMIT 1";
 $result = $conn->query($userInfo);
   
 if ($result->num_rows == 0) {
     header("Location: login.php");
 } else {
     $row = $result->fetch_assoc();
+    $firstName = $row['first_name'];
+    $lastName = $row['last_name'];
     $email = $row['email'];
     $middleName = $row['middle_name'];
     $phone = $row['phone'];
@@ -77,34 +76,34 @@ $cCountry = $rowCurrentAddress['country'];
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <style>
-    body {
-        /*font: 20px Montserrat, sans-serif;*/
-        /*color: #f5f6f7;*/
-    }
-    p {font-size: 16px;}
-    /*.margin {margin-bottom: 45px;}*/
-    .bg-1 { 
-        background-color: #1abc9c; /* Green */
-        color: #ffffff;
-    }
-    .bg-2 { 
-        background-color: #474e5d; /* Dark Blue */
-        color: #ffffff;
-    }
-    .bg-3 { 
-        background-color: #ffffff; /* White */
-        color: #555555;
-    }
-    .bg-4 { 
-        background-color: #2f2f2f; /* Black Gray */
-        color: #fff;
-    }
-    footer {
-                   color: white;
-                  background-color: black;
-                  padding: 1em;
-                  text-align: center;
-              }
+        body {
+            /*font: 20px Montserrat, sans-serif;*/
+            /*color: #f5f6f7;*/
+        }
+        p {font-size: 16px;}
+        /*.margin {margin-bottom: 45px;}*/
+        .bg-1 { 
+            background-color: #1abc9c; /* Green */
+            color: #ffffff;
+        }
+        .bg-2 { 
+            background-color: #474e5d; /* Dark Blue */
+            color: #ffffff;
+        }
+        .bg-3 { 
+            background-color: #ffffff; /* White */
+            color: #555555;
+        }
+        .bg-4 { 
+            background-color: #2f2f2f; /* Black Gray */
+            color: #fff;
+        }
+        footer {
+                       color: white;
+                      background-color: black;
+                      padding: 1em;
+                      text-align: center;
+        }
     
     </style>
 </head>
