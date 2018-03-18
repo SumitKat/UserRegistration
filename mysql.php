@@ -34,7 +34,6 @@ if ($conn->query($sqlUsers) === true) {
 
 if ($last_id==0) {
     echo "Email Id already registered";
-    header("Location: login.php");
 } else {
     $currentStreet = $_SESSION[ 'form_data' ][ 'cStreet' ];
     $curentCity = $_SESSION[ 'form_data' ][ 'cCity' ];
@@ -78,7 +77,6 @@ if ($last_id==0) {
     if ($conn->query($sqlInterest) === true) {
          $FLAG = true;
     }
-    var_dump('expression');
     if ($FLAG == false) {
         echo "Data not inserted";
     } else {
