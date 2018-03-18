@@ -1,10 +1,5 @@
 <?php
-// Start the session
 session_start();
-
-// echo '<pre>';
-// print_r($_SESSION);
-
 $_SESSION['form_data']['email'] = isset($_POST['email']) ? $_POST['email'] : '';
 
 $_SESSION['form_data']['password'] = isset($_POST['password']) ? $_POST['password'] : '';
@@ -46,53 +41,6 @@ while ($i<$cnt) {
     $i++;
 }
 
-echo '</pre>';
-?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Create Account</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <style>
-        .error {
-            color: red;
-        }
-            
-        .resize {
-            width: 180px;
-        }
-            
-        p {
-            font-family: "Times New Roman";
-        }
-
-        footer,
-        header {
-            color: white;
-            background-color: black;
-            padding: 1em;
-            text-align: center;
-        }
-            
-        form {
-            padding: 1em;
-            overflow: hidden;
-        }
-
-        body {
-            background-size: cover;
-        }
-    </style>
-</head>
-<body background="background.jpg">
-
-<?php
-// define variables and set to empty values
 $passErr = $emailErr = $repassErr=$phoneErr=$firstNameErr=$lastNameErr=$dobErr=
 $genderErr=$currentStreetErr=$permanentStreetErr=$currentCityErr=
 $permanentCityErr=$currentCountryErr=$permanentCountryErr=
@@ -249,6 +197,20 @@ function testInput($data)
 }
 ?>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Create Account</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="index.css">
+</head>
+<body background="background.jpg">
+
+
           <nav class = "navbar navbar-inverse">
         <div class = "container-fluid">
             <div class = "navbar-header">
@@ -279,7 +241,7 @@ function testInput($data)
                             <div class="credentials">
                                 <div class="form-group">
                                     <label for="Email">Email address:</label>
-                                    <input type="text" class="form-control" name="email" id="Email" value=<?php echo $_SESSION['form_data']['email'];?>>
+                                    <input type="text" class="form-control" name="email" id="Email" value=<?php echo isset($_SESSION['form_data']) ? $_SESSION['form_data']['email'] : '';?>>
                                     <span class="error">* <?php echo $emailErr;?></span>
                                 </div>
                                 <div class = "form-group">
@@ -294,7 +256,7 @@ function testInput($data)
                                 </div>
                                 <div class = "form-group">
                                     <label for = "phn">Phone: </label>
-                                    <input type = "text" class = "form-control" name = "phone" id="phn" value = <?php echo$_SESSION['form_data']['phone'];?>>
+                                    <input type = "text" class = "form-control" name = "phone" id="phn" value = <?php echo isset($_SESSION['form_data']['phone']) ? $_SESSION['form_data']['phone']: '';?>>
                                     <span class = "error">* <?php echo $phoneErr;?></span>
                                 </div>
                             </div>
@@ -303,22 +265,22 @@ function testInput($data)
                             <div class = "info">
                                 <div class = "form-group">
                                     <label for = "f_name">First Name:</label>
-                                    <input type = "text" class = "form-control" name = "firstName" id = "f_name" value =<?php echo $_SESSION['form_data']['firstName'];?>>
+                                    <input type = "text" class = "form-control" name = "firstName" id = "f_name" value =<?php echo isset($_SESSION['form_data']['firstName']) ? $_SESSION['form_data']['firstName'] : '';?>>
                                     <span class = "error">*<?php echo $firstNameErr;?></span>
                                 </div>
                                 <div class = "form-group">
                                     <label for = "mname">Middle Name:</label>
-                                    <input type = "text" class = "form-control" name = "middleName" id = "mname" value=<?php echo $_SESSION['form_data']['middleName'];?>>
+                                    <input type = "text" class = "form-control" name = "middleName" id = "mname" value=<?php echo isset($_SESSION['form_data']['middleName']) ?$_SESSION['form_data']['middleName'] : '';?>>
                                     <p></p>
                                 </div>
                                 <div class="form-group">
                                     <label for="l_name">Last Name: </label>
-                                    <input type = "text" class = "form-control" name = "lastName" id = "l_name" value =<?php echo $_SESSION['form_data']['lastName']?>>
+                                    <input type = "text" class = "form-control" name = "lastName" id = "l_name" value =<?php echo isset($_SESSION['form_data']['lastName']) ? $_SESSION['form_data']['lastName'] : ''?>>
                                     <span class = "error">*<?php echo $lastNameErr; ?></span>
                                 </div>
                                 <div class = "form-group">
                                     <label for = "d_o_b">Date Of Birth:</label>
-                                    <input type = "Date" class = "form-control" name = "dob" id="d_o_b" value = <?php echo $_SESSION['form_data']['dob']?>>
+                                    <input type = "Date" class = "form-control" name = "dob" id="d_o_b" value = <?php echo isset($_SESSION['form_data']['dob']) ? $_SESSION['form_data']['dob'] : ''?>>
                                     <span class = "error">*<?php echo $dobErr;?></span>
                                 </div>
                                 <div class = "form-group">
@@ -354,7 +316,7 @@ function testInput($data)
                             <div class = "address">
                                 <div class = "form-group">
                                     <label for = "c_street">Current Street:</label>
-                                    <input type = "text" class="form-control" name="cStreet" id="c_street" value=<?php echo $_SESSION['form_data']['cStreet'];?>>
+                                    <input type = "text" class="form-control" name="cStreet" id="c_street" value=<?php echo isset($_SESSION['form_data']['cStreet']) ? $_SESSION['form_data']['cStreet'] : '';?>>
                                     <span class = "error">*<?php echo $currentStreetErr;?></span>
                                 </div>
                                 <div class = "form-group">
@@ -398,7 +360,7 @@ function testInput($data)
                     </div>
                 </div>
                 <input type = "submit" class = "btn btn-success center-block " 
-                value = "Submit" onclick = "return validate()">
+                value = "Submit";">
             </form>
 
             <footer class = "text-nowrap"> Copyright &copy; MindfireSolutions.com</footer>

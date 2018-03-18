@@ -1,0 +1,29 @@
+<style>
+    .error {
+        color: red;
+    }
+            
+    .resize {
+        width: 180px;
+    }
+            
+    p {
+        font-family: "Times New Roman";
+    }
+
+    footer,header {
+        color: white;
+        background-color: black;
+        padding: 1em;
+        text-align: center;
+    }
+            
+    form {
+        padding: 1em;
+        overflow: hidden;
+    }
+
+    body {
+        background-size: cover;
+    }
+</style>
