@@ -1,14 +1,13 @@
 <?php
 ini_set('display_errors', '1');
 session_start();
-$servername = "localhost";
-$username = "root";
-$password = "mindfire";
-$databaseName="myDB";
 
+require_once('databaseCredentials.php');
 // Create connection
-$conn = new mysqli($servername, $username, $password, $databaseName);
 
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $conn = new mysqli($servername, $username, $password, $databaseName);
+}
 // Check connection
 if ($conn->connect_error) {
     die( "Connection failed: " . $conn->connect_error );
@@ -37,8 +36,9 @@ if ($last_id==0) {
         $flag = true;
     }
 
+    $permanent = "permanent";
     $sqlPermanentAddress = $conn->prepare("INSERT INTO address ( user_id, street, state, city, country, type )VALUES (?, ?, ?, ?, ?, ?)");
-    $sqlPermanentAddress->bind_param("isssss", $last_id, $_SESSION[ 'form_data' ][ 'pStreet' ], $_SESSION[ 'form_data' ][ 'pCity' ], $_SESSION[ 'form_data' ][ 'pState' ], $_SESSION[ 'form_data' ][ 'pCountry' ], "permanent");
+    $sqlPermanentAddress->bind_param("isssss", $last_id, $_SESSION[ 'form_data' ][ 'pStreet' ], $_SESSION[ 'form_data' ][ 'pCity' ], $_SESSION[ 'form_data' ][ 'pState' ], $_SESSION[ 'form_data' ][ 'pCountry' ], $permanent);
 
     if ($sqlPermanentAddress->execute()) {
         $flag = true;
@@ -69,7 +69,7 @@ if ($last_id==0) {
         header("Location: dashboard.php");
     }
     
-
+    unset($_SESSION['form_data']);
 }
 
 $conn->close();

@@ -1,12 +1,11 @@
 <?php
 session_start();
+$emailErr = $passErr = "";
+$email = $pass = "";
 if (!empty($_SESSION['login'])) {
     header("Location: dashboard.php");
 } else {
-    $emailErr = $passErr = "";
-    $email = $pass = "";
     $flag = false;
-
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (empty($_POST["loginEmail"])) {
             $emailErr = "Email can't be empty";
@@ -30,36 +29,36 @@ if (!empty($_SESSION['login'])) {
             }
         }
     }
+    require_once('databaseCredentials.php');
+    // Create connection
+    $conn = new mysqli($servername, $username, $password, $databaseName);
 
-    if ($flag == false) {
-        $servername = "localhost";
-        $username = "root";
-        $password = "mindfire";
-        $databaseName="myDB";
-        // Create connection
-        $conn = new mysqli($servername, $username, $password, $databaseName);
-
-        // Check connection
-        if ($conn->connect_error) {
-            die( "Connection failed: " . $conn->connect_error );
-        }
-
-        $sql = "SELECT id,first_name, last_name, password FROM  users WHERE email = '$email' LIMIT 1";
-        $result = $conn->query($sql);
-        if ($result->num_rows == 0) {
-            $passErr = "Invalid email id or Password";
-        } else {
-            $row = $result->fetch_assoc();
-            if ($row['password'] == crypt($pass, 'salt')) {
-                $_SESSION['login']['id'] = $row['id'];
-                $_SESSION['login']['firstName'] = $row['first_name'];
-                $_SESSION['login']['lastName'] = $row['last_name'];
-                header("Location: dashboard.php");
-            }
-                        
-        }
-
+    // Check connection
+    if ($conn->connect_error) {
+        die( "Connection failed: " . $conn->connect_error );
     }
+    $random = crypt($pass, 'salt');
+    $sql = "SELECT id,first_name, last_name, password FROM  users WHERE email = '$email'AND password = '$random' LIMIT 1";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows == 0) {
+        $passErr = "Invalid email id or Password";
+        if ($email=="") {
+            var_dump('expression');
+            $passErr = "";
+        }
+    } else {
+        $row = $result->fetch_assoc();
+        if ($row['password'] == crypt($pass, 'salt')) {
+            $_SESSION['login']['id'] = $row['id'];
+            $_SESSION['login']['firstName'] = $row['first_name'];
+            $_SESSION['login']['lastName'] = $row['last_name'];
+            header("Location: dashboard.php");
+        }
+                    
+    }
+
+
 }
 
 function testInput($data)

@@ -1,16 +1,15 @@
 <?php
 session_start();
+ini_set('display_errors', '1');
 
 if (empty($_SESSION['login'])) {
     header("Location: login.php");
 }
 
-$servername = "localhost";
-$username = "root";
-$password = "mindfire";
-$databaseName="myDB";
+require_once('databaseCredentials.php');
 
 // Create connection
+
 $conn = new mysqli($servername, $username, $password, $databaseName);
 
 // Check connection
