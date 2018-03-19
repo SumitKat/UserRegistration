@@ -1,8 +1,7 @@
-<? php
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Theme Made By www.w3schools.com - No Copyright -->
+    <!-- Dashboard Page -->
     <title>DashBoard</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,6 +13,7 @@
     
 </head>
 <body>
+<!-- Navigation bar -->
  <nav class = "navbar navbar-inverse">
         <div class = "container-fluid">
             <div class = "navbar-header">
@@ -37,10 +37,7 @@
             </div>
         </div>
     </nav>
-
-
-
-
+<!-- Main Container  -->
 <div class="container-fluid bg-1 text-center">
     <h3 class="margin"><?php echo $firstName." ".$middleName." ".$lastName?></h3>
     <img src="bird.jpg" class="img-responsive img-circle margin" style="display:inline" alt="Bird" width="350" height="350">
@@ -52,7 +49,7 @@
     <p> I was born on <?php echo $dob?></p>
     <p><?php echo isset($interest)? "I have interests in ".$interest : ''?></p>
 </div>
-
+<!-- Sub Contaner -->
 <div class="container-fluid bg-3 text-center">    
     <h3 class="margin">Where To Find Me?</h3><br>
     <div class="row">
@@ -74,4 +71,3 @@
 
 </body>
 </html>
-?>

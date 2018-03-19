@@ -55,7 +55,7 @@ $currentState=$permanentState="";
 $flag=false;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
+    // Check if email is empty
     if (empty($_POST["email"])) {
         $emailErr = "Email is required";
     } else {
@@ -65,6 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               $flag = true;
         }
     }
+    // check if password is empty
     if (empty($_POST["password"])) {
         $passErr = "Password is required";
     } else {
@@ -74,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               $flag = true;
         }
     }
-
+    // check if password doesnt match
     if ((!empty($_POST["password"]))&&(empty($_POST["rePassword"]))) {
         $repassErr = "Please ReEnter Password";
     } else {
@@ -85,6 +86,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $flag = true;
         }
     }
+    // check if phone is empty
     if (empty($_POST["phone"])) {
         $phoneErr = "Phone is required" ;
     } else {
@@ -94,7 +96,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $flag = true;
         }
     }
-
+    // check if first name is empty
     if (empty($_POST["firstName"])) {
           $firstNameErr = "First name is required";
     } else {
@@ -104,7 +106,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $flag = true;
         }
     }
-
+    // check if last name is empty
     if (empty(($_POST["lastName"]))) {
         $lastNameErr = "Last name is required";
     } else {
@@ -114,7 +116,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $flag = true;
         }
     }
-
+    // check if dob is empty
     if (empty($_POST["dob"]) || !isset($_POST["dob"])) {
         $dobErr = "DOB is required";
     } else {
@@ -125,71 +127,75 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     
     }
-
+    // check if gender is empty
     if (empty($_POST["gender"])) {
         $genderErr = "* Gender is required";
         $flag = true;
     } else {
         $gender = testInput($_POST["gender"]);
     }
-
+    // check if current Street is empty
     if (empty($_POST["cStreet"])) {
         $currentStreetErr = "Current Street is required";
         $flag = true;
     } else {
         $currentStreet = testInput($_POST["cStreet"]);
     }
-  
+    // check if current State is empty
     if (empty($_POST["cState"])) {
         $currentStateErr = "Current State is required";
         $flag = true;
     } else {
           $currentState = testInput($_POST["cState"]);
     }
-  
+    // check if current country is empty
     if (empty($_POST["cCountry"])) {
         $currentCountryErr = "Current Country is required";
         $flag = true;
     } else {
         $currentCountry=testInput($_POST["cCountry"]);
     }
+    // check if current city is empty
     if (empty($_POST["cCity"])) {
         $currentCityErr="Current City is required";
         $flag = true;
     } else {
         $currentCity = testInput($_POST["cCity"]);
     }
-
+    // check if permanent street is empty
     if (empty($_POST["pStreet"])) {
          $permanentStreetErr = "Permanent Street is required";
          $flag = true;
     } else {
         $permanentStreet=testInput($_POST["pStreet"]);
     }
-
+    // check if permanent state is empty
     if (empty($_POST["pState"])) {
         $permanentStateErr="Permanent State is required";
         $flag = true;
     } else {
         $permanentState=testInput($_POST["pState"]);
     }
+    // check if permanent country is empty
     if (empty($_POST["pCountry"])) {
         $permanentCountryErr="Permanent Country is required";
         $flag =true;
     } else {
         $permanentCountry=testInput($_POST["pCountry"]);
     }
+    // check if permanent city is empty
     if (empty($_POST["pCity"])) {
         $permanentCityErr="Permanent City is required";
         $flag = true;
     } else {
         $permanentCity=testInput($_POST["pCity"]);
     }
+    // check if all the fields validated correctly so insert records to database
     if ($flag === false) {
         header("Location: mysql.php");
     }
 }
-
+// prevention from xss
 function testInput($data)
 {
     $data = trim($data);

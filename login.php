@@ -37,10 +37,11 @@ if (!empty($_SESSION['login'])) {
     if ($conn->connect_error) {
         die( "Connection failed: " . $conn->connect_error );
     }
+    // Encrypt password
     $random = crypt($pass, 'salt');
     $sql = "SELECT id,first_name, last_name, password FROM  users WHERE email = '$email'AND password = '$random' LIMIT 1";
     $result = $conn->query($sql);
-
+    //check if password and email doesn't match up
     if ($result->num_rows == 0) {
         $passErr = "Invalid email id or Password";
         if ($email=="") {
@@ -60,7 +61,7 @@ if (!empty($_SESSION['login'])) {
 
 
 }
-
+//prevention from xss
 function testInput($data)
 {
     $data = trim($data);
