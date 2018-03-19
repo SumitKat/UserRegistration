@@ -1,11 +1,23 @@
 <?php
 session_start();
-$emailErr = $passErr = "";
-$email = $pass = "";
+$servername = "localhost";
+$username = "root";
+$password = "mindfire";
+$databaseName="myDB";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $databaseName);
+
+if ($conn->connect_error) {
+    die( "Connection failed: " . $conn->connect_error );
+}
 if (!empty($_SESSION['login'])) {
     header("Location: dashboard.php");
 } else {
+    $emailErr = $passErr = "";
+    $email = $pass = "";
     $flag = false;
+
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (empty($_POST["loginEmail"])) {
             $emailErr = "Email can't be empty";
@@ -29,36 +41,24 @@ if (!empty($_SESSION['login'])) {
             }
         }
     }
-    require_once('databaseCredentials.php');
-    // Create connection
-    $conn = new mysqli($servername, $username, $password, $databaseName);
 
-    // Check connection
-    if ($conn->connect_error) {
-        die( "Connection failed: " . $conn->connect_error );
-    }
-    $random = crypt($pass, 'salt');
-    $sql = "SELECT id,first_name, last_name, password FROM  users WHERE email = '$email'AND password = '$random' LIMIT 1";
-    $result = $conn->query($sql);
-
-    if ($result->num_rows == 0) {
-        $passErr = "Invalid email id or Password";
-        if ($email=="") {
-            var_dump('expression');
-            $passErr = "";
+    if ($flag == false) {
+        $sql = $conn->prepare("SELECT id,first_name, last_name, password FROM  users WHERE email = '$email' LIMIT 1");
+        if (!$sql->execute()) {
+            $passErr = "Invalid email id or Password";
+        } else {
+            $sql->bind_result($id, $firstName, $lastName, $password);
+            $sql->fetch();
+            if ($password == crypt(hash('sha256', $pass), 'salt')) {
+                $_SESSION['login']['id'] = $id;
+                $_SESSION['login']['firstName'] = $firstName;
+                $_SESSION['login']['lastName'] = $lastName;
+                header("Location: dashboard.php");
+            }
+                        
         }
-    } else {
-        $row = $result->fetch_assoc();
-        if ($row['password'] == crypt($pass, 'salt')) {
-            $_SESSION['login']['id'] = $row['id'];
-            $_SESSION['login']['firstName'] = $row['first_name'];
-            $_SESSION['login']['lastName'] = $row['last_name'];
-            header("Location: dashboard.php");
-        }
-                    
+
     }
-
-
 }
 
 function testInput($data)
@@ -68,5 +68,4 @@ function testInput($data)
     $data = htmlspecialchars($data);
     return $data;
 }
-
-require ('loginview.php');
+require_once ('views/loginview.php');

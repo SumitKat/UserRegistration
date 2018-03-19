@@ -1,7 +1,5 @@
 <?php
-// Start the session
-session_start();
-
+// ini_set('display_errors', '1');
 $_SESSION['form_data']['email'] = isset($_POST['email']) ? $_POST['email'] : '';
 
 $_SESSION['form_data']['password'] = isset($_POST['password']) ? $_POST['password'] : '';
@@ -68,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($_POST["password"])) {
         $passErr = "Password is required";
     } else {
-        $pass = testInput($_POST["password"]);
+        $pass = hash('sha256', testInput($_POST["password"]));
         if (strlen($pass)<6 || (!preg_match("/[a-z]/", $pass))||(!preg_match("/[A-Z]/", $pass))||(!preg_match("/[0-9]/", $pass))) {
               $passErr = "Password must contain minimum of 6 characters , a lower case letter, a upper case letter and an integer";
               $flag = true;
@@ -186,7 +184,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $permanentCity=testInput($_POST["pCity"]);
     }
     if ($flag === false) {
-        header("Location: mysql.php");
+        header("Location:database/mysql.php");
     }
 }
 
@@ -198,4 +196,4 @@ function testInput($data)
     return $data;
 }
 
-require('indexview.php');
+require_once('views/indexview.php');

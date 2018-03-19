@@ -1,6 +1,19 @@
 <?php
-// ini_set('display_errors', '1');
+ini_set('display_errors', '1');
 session_start();
+$servername = "localhost";
+$username = "root";
+$password = "mindfire";
+$databaseName="myDB";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $databaseName);
+
+// Check connection
+if ($conn->connect_error) {
+    die( "Connection failed: " . $conn->connect_error );
+}
+
 $last_id=0;
 $flag=false;
 $sqlUsers = $conn->prepare("INSERT INTO users ( email, password, phone, first_name, middle_name, last_name, dob, gender ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
@@ -58,5 +71,5 @@ if ($last_id==0) {
     
 
 }
-require_once('sqlconnection.php');
+
 $conn->close();

@@ -1,6 +1,5 @@
 <?php
 session_start();
-require_once('database/sqlconnection.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -12,9 +11,9 @@ require_once('database/sqlconnection.php');
     <link rel = "stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/login.css">
+    <link rel="stylesheet" type="text/css" href="login.css">
 </head>
-    <body background="img/loginbcg.jpg">
+    <body>
         <nav class = "navbar navbar-inverse">
             <div class = "container-fluid">
                 <div class = "navbar-header">

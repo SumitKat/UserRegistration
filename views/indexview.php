@@ -1,6 +1,6 @@
 <?php
 session_start();
-ini_set('display_errors', '1');
+// ini_set('display_errors', '1');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,27 +19,27 @@ ini_set('display_errors', '1');
   <!-- Trigger the modal with a button -->
 
   <!-- Modal -->
-  <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Errors</h4>
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+        <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Errors</h4>
+                </div>
+                <div class="modal-body">
+                    <p><?php echo isset ($_SESSION['popup']) ? $_SESSION['popup']:'No errors';?></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
         </div>
-        <div class="modal-body">
-          <p><?php echo isset ($_SESSION['popup']) ? $_SESSION['popup']:'No errors';?></p>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      	</div>
-      
-    	</div>
-  	</div>
-  
-	</div>
+
+    </div>
 
 
 
@@ -200,8 +200,8 @@ ini_set('display_errors', '1');
     value = "Submit";">
 </form>
 
-            <footer class = "text-nowrap"> Copyright &copy; MindfireSolutions.com</footer>
+<footer class = "text-nowrap"> Copyright &copy; MindfireSolutions.com</footer>
            
-    </body>
+</body>
 
-    </html>
+</html>

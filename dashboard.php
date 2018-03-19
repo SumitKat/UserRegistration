@@ -1,18 +1,18 @@
 <?php
 session_start();
-ini_set('display_errors', '1');
+// ini_set('display_errors', '1');
 
 if (empty($_SESSION['login'])) {
     header("Location: login.php");
 }
-
-require_once('databaseCredentials.php');
+$servername = "localhost";
+$username = "root";
+$password = "mindfire";
+$databaseName="myDB";
 
 // Create connection
-
 $conn = new mysqli($servername, $username, $password, $databaseName);
 
-// Check connection
 if ($conn->connect_error) {
     die( "Connection failed: " . $conn->connect_error );
 }
@@ -20,7 +20,6 @@ if ($conn->connect_error) {
 $id =$_SESSION['login']['id'];
 $userInfo = "SELECT  first_name, last_name, middle_name, email, phone, dob, gender FROM  users WHERE id = '$id' LIMIT 1";
 $result = $conn->query($userInfo);
-  
 if ($result->num_rows == 0) {
     header("Location: login.php");
 } else {
@@ -60,4 +59,5 @@ $cStreet = $rowCurrentAddress['street'];
 $cState = $rowCurrentAddress['state'];
 $cCountry = $rowCurrentAddress['country'];
 
-require('dashboardview.php');
+require_once('database/sqlconnection.php');
+require_once('views/dashboardview.php');

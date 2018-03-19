@@ -74,5 +74,4 @@
 
 </body>
 </html>
-require_once('database/sqlconnection.php');
 ?>

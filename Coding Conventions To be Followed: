@@ -1,0 +1,36 @@
+Coding Conventions To be Followed:
+
+
+Spaces on both side of binary operators:
+ex->     $a = $b + $c;
+
+
+Spaces inside parenthesis but not if parenthesis are empty:
+ex->     $a = putFoo( $b );
+		 $a = getFoo();
+
+
+Spaces while declaring an array but not while accessing elements or declaring empty array:
+ex->     $array = [ 'first', 'second' ];
+		 $array = [];
+		 $element = $array[0];
+
+
+Control statements should be followed by spaces:
+ex->     if ( isFoo() ) {
+		 	 $a = 'foo';	
+		 }
+
+Comments should be followed by a space:
+ex->     // This is a comment.
+
+
+While typecasting don't use spaces:
+ex->    (int)$foo;
+
+
+Use ternary operator for short conditions:
+ex->    $firstName = isset( $_SESSION[ 'firstName' ] ) ? $_SESSION[ 'firstName' ] : '';
+
+
+Use 
