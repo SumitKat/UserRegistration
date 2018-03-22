@@ -49,7 +49,7 @@ if ($sqlUsers->execute()) {
         $sqlInterest->bind_param("is", $last_id, $interest);
         if ($sqlInterest->execute()) {
             echo "within interest";
-            header("Location:../view/dashboard.php");
+            header("Location:../model/dashboard.php");
         }
     }
 }

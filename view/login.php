@@ -1,6 +1,10 @@
 <?php
 session_start();
+if (!empty($_SESSION['login'])) {
+    header("Location: ../model/dashboard.php");
+}
 ?>
+
 <!DOCTYPE html>
 <html>
 
@@ -46,12 +50,13 @@ session_start();
                             <div class = "form-group bg-2">
                                 <br>
                                 <label> SIGN IN TO MINDFIRE</label><br>
+                                <p></p>
                                 <span class="error"><?php echo isset($emailErr) ? $emailErr : '';?></span>
                                 <input class = "form-control" placeholder="Email" type = "email" name="loginEmail" id = "loginEmail" autofocus>
-                                
+                                <p></p>
                                <span class="error"><?php echo isset($passErr) ? $passErr : '';?></span>
                                 <input type = "password" placeholder = "Password" class = "form-control" name = "loginPassword" id = "loginPassword">
-                                 
+                                 <p></p>
                                 <input type = "submit" name = "login" class="btn btn-primary btn-block" value = "SIGN IN">
                                 <br>
                                 </div>

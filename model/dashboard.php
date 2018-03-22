@@ -1,7 +1,5 @@
 <?php
 session_start();
-ini_set('display_errors', '1');
-
 if (empty($_SESSION['login'])) {
     header("Location: login.php");
 }
@@ -46,5 +44,4 @@ $city = $rowAddress['city'];
 $street = $rowAddress['street'];
 $state = $rowAddress['state'];
 $country = $rowAddress['country'];
-
-require('../view/dashboard.php');
+require_once('../view/dashboard.php');

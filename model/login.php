@@ -1,9 +1,10 @@
 <?php
+ini_set('display_erros', 1);
 session_start();
 $emailErr = $passErr = "";
 $email = $pass = "";
 if (!empty($_SESSION['login'])) {
-    header("Location: ../view/dashboard.php");
+    header("Location: dashboard.php");
 } else {
     $flag = false;
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -29,6 +30,7 @@ if (!empty($_SESSION['login'])) {
             }
         }
     }
+
     require_once('../config/config.php');
     // Create connection
     $conn = new mysqli(SERVER_NAME, USER_NAME, PASSWORD, DATABASE_NAME);
@@ -38,27 +40,20 @@ if (!empty($_SESSION['login'])) {
         die( "Connection failed: " . $conn->connect_error );
     }
     $random = hash('sha256', $pass);
-    $sql = "SELECT id,first_name, last_name, password FROM  users WHERE email = '$email'AND password = '$random' LIMIT 1";
+    $sql = "SELECT id, name, password FROM  user WHERE email = '$email'AND password = '$random' LIMIT 1";
     $result = $conn->query($sql);
 
     if ($result->num_rows == 0) {
         $passErr = "Invalid email id or Password";
         if ($email=="") {
-            var_dump('expression');
             $passErr = "";
         }
     } else {
         $row = $result->fetch_assoc();
-        if ($row['password'] == crypt($pass, 'salt')) {
             $_SESSION['login']['id'] = $row['id'];
-            $_SESSION['login']['firstName'] = $row['first_name'];
-            $_SESSION['login']['lastName'] = $row['last_name'];
-            header("Location: ../view/dashboard.php");
-        }
-                    
+            $_SESSION['login']['name'] = $row['name'];
+            header("Location: ../model/dashboard.php");
     }
-
-
 }
 
 function testInput($data)
@@ -68,5 +63,4 @@ function testInput($data)
     $data = htmlspecialchars($data);
     return $data;
 }
-
 require ('../view/login.php');

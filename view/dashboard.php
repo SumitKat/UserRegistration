@@ -1,3 +1,10 @@
+<?php
+session_start();
+if (empty($_SESSION['login'])) {
+    header("Location: ../model/login.php");
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +16,7 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="dashboard.css">    
+    <link rel="stylesheet" type="text/css" href="../css/dashboard.css">    
     
 </head>
 <body>
@@ -40,7 +47,7 @@
 <!-- Main Container  -->
 <div class="container-fluid bg-1 text-center">
     <h3 class="margin"><?php echo $name?></h3>
-    <img src="bird.jpg" class="img-responsive img-circle margin" style="display:inline" alt="Bird" width="350" height="350">
+    <img src="../img/loginbcg.jpg" class="img-responsive img-circle margin" style="display:inline" alt="Bird" width="350" height="350">
     <h3> <?php echo $phone." / ".$email ?></h3>
 </div>
 
@@ -53,10 +60,10 @@
 <div class="container-fluid bg-3 text-center">    
     <h3 class="margin">Where To Find Me?</h3><br>
     <div class="row">
-        <div class="col-sm-6">
-            <h4 class="margin">Permanent Address</h5>
+        <div class="col-sm-12">
+            <h4 class="margin">Address:</h5>
             <p><?php echo $street.",".$city.",".$state.",".$country?></p>
-            <img src="bird.jpg" class="img-responsive margin" style="width:100%" alt="Image">
+            <img src="../img/loginbcg.jpg" class="img-responsive margin" style="display: width: 100%" alt="Image">
         </div>
     </div>
 </div>

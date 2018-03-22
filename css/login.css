@@ -1,6 +1,5 @@
 @media only screen and (min-width: 1200px) {
     .bg-1 {
-    color: #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -22,7 +21,6 @@ footer {
     align-self: bottom     
 }
 .bg-1 {
-    color: #ffffff;
     margin-top: 16%;
 }
     
@@ -30,7 +28,6 @@ footer {
     background-color: #ffffff;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
-    height: 50%;
     border-radius: 5px;
     align-items: center;
     justify-content: center;

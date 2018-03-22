@@ -1,6 +1,5 @@
 <?php
 session_start();
-ini_set('display_errors', 1);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -37,7 +36,7 @@ ini_set('display_errors', 1);
                     <li><a href = "#">About Us</a></li>
                 </ul>
                 <ul class = "nav navbar-nav navbar-right">
-                    <li><a href = "view/login.php"><span class="glyphicon glyphicon-user"></span> Log In</a></li>
+                    <li><a href = "model/login.php"><span class="glyphicon glyphicon-user"></span> Log In</a></li>
                 </ul>
             </div>
         </div>
