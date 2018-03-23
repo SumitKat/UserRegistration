@@ -5,8 +5,7 @@ if (empty($_SESSION['login'])) {
 }
 
 require_once('../config/config.php');
-
-// Create connection
+require_once('../api/dbquery.php');
 
 $conn = new mysqli(SERVER_NAME, USER_NAME, PASSWORD, DATABASE_NAME);
 
@@ -16,30 +15,50 @@ if ($conn->connect_error) {
 }
 
 $id =$_SESSION['login']['id'];
+
 //data from  users is extracted
-$userInfo = "SELECT name, email, phone, dob, gender FROM  user WHERE id = '$id' LIMIT 1";
+$userInfo = "SELECT email FROM  user WHERE id = '$id' LIMIT 1";
 $result = $conn->query($userInfo);
+
 // check if query returns no result
 if ($result->num_rows == 0) {
     header("Location: login.php");
-} else {
-    $row = $result->fetch_assoc();
-    $name = $row['name'];
-    $email = $row['email'];
-    $phone = $row['phone'];
-    $dob = $row['dob'];
-    $gender = $row['gender'];
 }
+$users =new DbQuery();
+$user = [];
+$user[0] = 'name';
+$user[1] = 'email';
+$user[2] = 'phone';
+$user[3] = 'dob';
+$user[4] = 'gender';
+
+$row = $users->select('user', $user, 'id', $id);
+$name = $row['name'];
+$email = $row['email'];
+$phone = $row['phone'];
+$dob = $row['dob'];
+$gender = $row['gender'];
+
+
 //data from interest table is fetched
-$userInterests = "SELECT interest FROM interest WHERE user_id ='$id' LIMIT 1";
-$resultInterest = $conn->query($userInterests);
-$rowInterest = $resultInterest->fetch_assoc();
+$interest = new DbQuery();
+
+$int = [];
+$int[0] = 'interest';
+
+$rowInterest = $interest->select('interest', $int, 'user_id', $id);
 $interest = $rowInterest['interest'];
+
 //data about permanent address from address table is fetched
-$address = "SELECT  street, city, country, state FROM address 
-                         WHERE user_id = '$id'";
-$resultAddress = $conn->query($address);
-$rowAddress = $resultAddress->fetch_assoc();
+$address = new DbQuery();
+
+$add = [];
+$add[0] = 'street';
+$add[1] = 'state';
+$add[2] = 'city';
+$add[3] = 'country';
+
+$rowAddress = $address->select('address', $add, 'user_id', $id);
 $city = $rowAddress['city'];
 $street = $rowAddress['street'];
 $state = $rowAddress['state'];

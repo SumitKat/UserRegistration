@@ -1,57 +1,50 @@
 <?php
-ini_set('display_errors', '1');
-session_start();
+require_once("../config/config.php");
 
-//file with constants for DB connection
-require_once('../config/config.php');
-
-// Create connection
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $conn = new mysqli(SERVER_NAME, USER_NAME, PASSWORD, DATABASE_NAME);
-}
-
-// Check connection
-if ($conn->connect_error) {
-    die( "Connection failed: " . $conn->connect_error );
-}
 $last_id=0;
+require_once('dbquery.php');
+$usr = new DbQuery();
 
-// prepare statement for insertion to user table
-$sqlUsers = $conn->prepare("INSERT INTO user ( email, password, phone, name, dob, gender ) VALUES (?, ?, ?, ?, ?, ?)");
+$array=[];
 
-//bind parameters and there type
-$sqlUsers->bind_param("ssisss", $_POST['loginEmail'], hash('sha256', $_POST['loginPassword']), $_POST['phone'], $_POST['name'], $_POST['dob'], $_POST['gender']);
+$array['email'] = $_POST['loginEmail'];
+$array['password'] = hash('sha256', $_POST['loginPassword']);
+$array['phone'] = $_POST['phone'];
+$array['name'] = $_POST['name'];
+$array['dob'] = $_POST['dob'];
+$array['gender'] = $_POST['gender'];
 
-//execution of the query
-if ($sqlUsers->execute()) {
-    $last_id = $conn->insert_id;
+$usr -> insert('user', $array);
+$last_id = $usr -> exec();
 
-    //prepare statement for insertion to address table
-    $sqlAddress = $conn->prepare("INSERT INTO address ( user_id, street, state, city,country ) VALUES (?, ?, ?, ?, ?)");
+$add=new DbQuery();
 
-    //bind paramenters and there type
-    $sqlAddress->bind_param("issss", $last_id, $_POST['street'], $_POST['state'], $_POST['city'], $_POST['country']);
+$address = [];
+$address['user_id'] = $last_id;
+$address['street'] = $_POST['street'];
+$address['state'] = $_POST['state'];
+$address['city'] = $_POST['city'];
+$address['country'] = $_POST['country'];
 
-    //execution of the query
-    if ($sqlAddress->execute()) {
-        echo "within adddress";
-        $interestLength = count($_POST[ 'interests' ]);
-        $i = 0;
-        $interest = "";
+$add -> insert('address', $address);
+$add -> exec();
 
-        while ($i < $interestLength-1) {
-            $interest .= $_POST[ 'interests' ][$i].',' ;
-            $i++;
-        }
-        $interest .= $_POST[ 'interests' ][$interestLength-1];
-         
-        $sqlInterest = $conn->prepare("INSERT INTO interest ( user_id, interest ) VALUES ( ?, ? )");
-        $sqlInterest->bind_param("is", $last_id, $interest);
-        if ($sqlInterest->execute()) {
-            echo "within interest";
-            header("Location:../model/dashboard.php");
-        }
-    }
+$interestLength = count($_POST[ 'interests' ]);
+$i = 0;
+$interest = "";
+
+while ($i < $interestLength-1) {
+    $interest .= $_POST[ 'interests' ][$i].',' ;
+    $i++;
 }
+$interest .= $_POST[ 'interests' ][$interestLength-1];
+         
+$int = new DbQuery();
+$intrst = [];
+$intrst['user_id'] = $last_id;
+$intrst['interest'] = $interest;
+
+$int -> insert('interest', $intrst);
+$int -> exec();
 
 $conn->close();
