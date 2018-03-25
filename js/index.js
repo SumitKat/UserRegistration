@@ -9,8 +9,10 @@ $(document).ready(function() {
         var dotpos = email.lastIndexOf(".");
         $("#ema").text("");
 
-        if (email.length!=0 && (atpos<1 || dotpos<atpos+2 || dotpos+2>=email.length)) {
+        if (email.length ==0 || (atpos<1 || dotpos<atpos+2 || dotpos+2>=email.length)) {
         $("#ema").text("Invalid Email ID. ");
+        showCross($(".crossEmail"),$(".tickEmail"));
+        errorEmail[0] = 0;
         } else {
         
         $.ajax({
@@ -27,8 +29,9 @@ $(document).ready(function() {
             success: function(response){
                 var resp = response.email;
                 if(resp === '') {
-                    $(".tickEmail").css("display", "inline");
-                    errorEmail[0] = "email";
+                    showTick($(".crossEmail"),$(".tickEmail"));
+                    if(errorEmail.length != 3)
+                        errorEmail[0] = 1;
                 }
                 $("#ema").text(resp);
             }
@@ -41,11 +44,13 @@ $(document).ready(function() {
         $(".tickPass").css("display", "none");
 		var password=$("#loginPassword").val();
         $("#ema").text("");
-        if((password.length!=0)&&((password.length<6||(password.search(/[0-9]/)==-1)||(password.search(/[a-z]/)==-1)||(password.search(/[A-Z]/)==-1)))) {
+        if((password.length == 0)||((password.length<6||(password.search(/[0-9]/)==-1)||(password.search(/[a-z]/)==-1)||(password.search(/[A-Z]/)==-1)))) {
         $("#ema").text ("Passwords must have at least 6 characters and contain at least the following:upper case letters, lower case letters and numbers.");
+        showCross($(".crossPass"),$(".tickPass"));
+        errorEmail[1] = 0;
 	    } else {
-        $(".tickPass").css("display", "inline");
-        errorEmail[1] = "password";
+        showTick($(".crossPass"),$(".tickPass"));
+        errorEmail[1] = 1;
         }
 	});
     // check id Retype password field is changed
@@ -54,40 +59,53 @@ $(document).ready(function() {
 		var password = $("#loginPassword").val();
 		var re_password = $("#loginRePassword").val();
         $("#ema").text("");
-		if(password!=re_password) {
+		if(password !=re_password) {
 	        $("#ema").text("Password mismatch"); 
+            showCross($(".crossRepass"),$(".tickRepass"));
+            errorEmail[2] = 0;
         } else {
-        $(".tickRepass").css("display", "inline");
-        errorEmail[2] = "repass";
+        showTick($(".crossRepass"),$(".tickRepass"));
+        errorEmail[2] = 1;
         }
 	})
     // action to be performed if next button of email form is clicked
     $(".button1").click(function(){
-        if(errorEmail.length == 3 ) {
+        var flag=0, i;
+        for(i=0 ; i<errorEmail.length; i++) {
+            if(errorEmail[i] == 0)
+            {
+                flag=1;
+            }
+        }
+        if(flag ==0 && errorEmail.length == 3) {
             $(".container1").hide();
             $(".container2").show();
+        } else {
+            $("#ema").text("Please Fill all the above fields correctly");
         }
     });
     // check if the name field is changed
     $("#name").change(function(){
         $("#form2_err").text("");
         if(isEmpty($("#name").val())) {
+            showCross($(".crossName"),$(".tickName"));
             $("#form2_err").text("Name is a required field");
-        } else
-        {   $(".tickName").css("display", "inline");
-            errorName[0] = "name";
+            errorName[0] = 0;
+        } else {
+            showTick($(".crossName"),$(".tickName"));
+            errorName[0] = 1;
         }   
     });
     // check if the phone field is changed
     $("#phone").change(function(){
         $("#form2_err").text("");
-        if($("#phone").val().length<10) {
-            $("#form2_err").text("Phone should have atleast 10 integers");
-        } else if($("#phone").val().search(/[a-z]/)!=-1 ||$("#phone").val().search(/[A-Z]/)!=-1) {
+        if($("#phone").val().length<10 || $("#phone").val().search(/[a-z]/)!=-1 ||$("#phone").val().search(/[A-Z]/)!=-1) {
+            errorName[1] = 0;
             $("#form2_err").text("Invalid phone");
+            showCross($(".crossPhone"),$(".tickPhone"));
         } else {
-            $(".tickPhone").css("display", "inline");
-            errorName[1] = "phone";
+            showTick($(".crossPhone"),$(".tickPhone"));
+            errorName[1] =1;
         }
 
     });
@@ -98,9 +116,9 @@ $(document).ready(function() {
     if($('input[name=gender]:checked').length<=0)
         {
             $("#form2_err").text("Please Select Gender");
+            errorName[2] = 0;
         } else {
-            $(".tickGender").css("display", "none");
-            errorName[2] = "gender";
+            errorName[2] = 1;
         }
     });
     // check if the dob field is changed
@@ -112,16 +130,26 @@ $(document).ready(function() {
         var date = new Date($("#dob").val());
         if(date > dt || date < odt) {
             $("#form2_err").text("Invalid date");
+            showCross($(".crossDate"),$(".tickDate"));
+            errorName[3] = 0;
         } else {
-            $(".tickDate").css("display", "inline");
-            errorName[3] = "date";
+            showTick($(".crossDate"),$(".tickDate"));
+            errorName[3] = 1;
         }
     });
     // Action to be performed if the next button of basic details form is clicked
     $("#form2_next").click(function(){
-        if(errorName.length == 4) {
-            $(".container2").hide();
-            $(".container3").show();
+        var flag =0 ,i;
+        for(i=0 ; i < errorName.length; i++) {
+            if(errorName[i] == 0) {
+                flag = 1;
+            }
+            if(flag == 0 && errorName.length == 4) {
+                $(".container2").hide();
+                $(".container3").show();
+            } else {
+                $("#form2_err").text("Please Fill all the above fields correctly");
+            }
         }
     });
     // Action to be performed if the back button of basic details form is clicked
@@ -135,8 +163,9 @@ $(document).ready(function() {
         $("#form3_err").text("");
         if(isEmpty($("#street").val())) {
             $("#form3_err").text("Street field is required");
+            showCross($(".crossStreet"),$(".tickStreet"));
         } else {
-            $(".tickStreet").css("display", "inline");
+            showTick($(".crossStreet"),$(".tickStreet"));
         }
 
     });
@@ -146,8 +175,9 @@ $(document).ready(function() {
         $("#form3_err").text("");
         if(isEmpty($("#state").val())) {
             $("#form3_err").text("State field is required");
+            showCross($(".crossStreet"),$(".tickState"));
         } else {
-            $(".tickState").css("display", "inline");
+            showTick($(".crossStreet"),$(".tickState"));
         }
 
     });
@@ -157,8 +187,9 @@ $(document).ready(function() {
         $("#form3_err").text("");
         if(isEmpty($("#city").val())) {
             $("#form3_err").text("City field is required");
+            showCross($(".crossCity"),$(".tickCity"));
         } else {
-            $(".tickCity").css("display", "inline");
+            showTick($(".crossCity"),$(".tickCity"));
         }
 
     });
@@ -168,8 +199,9 @@ $(document).ready(function() {
         $("#form3_err").text("");
         if(isEmpty($("#country").val())) {
             $("#form3_err").text("Country field is required");
+            showCross($(".crossCountry"),$(".tickCountry"));
         } else {
-            $(".tickCountry").css("display", "inline");
+            showTick($(".crossCountry"),$(".tickCountry"));
         }
 
     });
@@ -183,5 +215,15 @@ $(document).ready(function() {
         if(arg.length <2) {
             return true;
         }
+    }
+
+    function showTick(cross, tick) {
+        cross.css("display", "none");
+        tick.css("display", "inline");
+    }
+
+    function showCross(cross, tick) {
+        tick.css("display", "none");
+        cross.css("display", "inline");
     }
 });

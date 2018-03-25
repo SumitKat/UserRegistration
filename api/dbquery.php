@@ -1,9 +1,8 @@
 <?php
 class DbQuery
 {
+    public $conn;
     public $sql;
-    private $conn;
-
     public function __construct()
     {
         $conn = new mysqli(SERVER_NAME, USER_NAME, PASSWORD, DATABASE_NAME);
@@ -51,7 +50,6 @@ class DbQuery
         for ($i = 0; $i < count($array)-1; $i++) {
             $value .= $array[$i].", ";
         }
-
         $value .= $array[count($array) -1];
         $sql = "SELECT $value FROM $table where $id1 = '$id2' LIMIT 1";
         $result = $conn->query($sql);

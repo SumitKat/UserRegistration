@@ -50,9 +50,9 @@ session_start();
                     <div class = "col-lg-12 col-md-12   col-sm-12 form">
                         <div class = "form-group bg-2">
                             <br>
-                            <input class = "form-control" placeholder="Email" type = "email" name="loginEmail" id = "loginEmail" autofocus><img class= "tickEmail" src="img/tick.png" style="height : 20px"><p></p>
-                            <input type = "password" placeholder = "Password" class = "form-control" name = "loginPassword" id = "loginPassword"><img class = "tickPass" src="img/tick.png" style="height : 20px"><p></p>
-                            <input type = "password" placeholder = "Retype Password" class = "form-control" name = "loginRePassword" id = "loginRePassword"><img class = "tickRepass" src="img/tick.png" style="height : 20px"><p></p>
+                            <input class = "form-control" placeholder="Email" type = "email" name="loginEmail" id = "loginEmail" autofocus><img class= "tickEmail" src="img/tick.png" style="height : 20px"><img class= "crossEmail" src="img/cross.png" style="height : 20px"><p></p>
+                            <input type = "password" placeholder = "Password" class = "form-control" name = "loginPassword" id = "loginPassword"><img class = "tickPass" src="img/tick.png" style="height : 20px"><img class= "crossPass" src="img/cross.png" style="height : 20px"><p></p>
+                            <input type = "password" placeholder = "Retype Password" class = "form-control" name = "loginRePassword" id = "loginRePassword"><img class = "tickRepass" src="img/tick.png" style="height : 20px"><img class= "crossRepass" src="img/cross.png" style="height : 20px"><p></p>
                             <input name = "next" id = "next" class="btn btn-primary btn-block button1" value = "Next">
                             <br>
                             <span id="ema" style="color: red"></span>
@@ -68,9 +68,10 @@ session_start();
                 <div class = "row"><label style="color: #000"><h4><strong>Create Account</strong> </h4></label><br>
                     <div class = "col-lg-12 col-md-12   col-sm-12 form">
                         <div class = "form-group bg-4">
-                            <input class="form-control" type="text" name="name" placeholder="Name" id="name" autofocus><img class= "tickName" src="img/tick.png" style="height : 20px"><p></p>
+                            <input class="form-control" type="text" name="name" placeholder="Name" id="name" autofocus><img class= "tickName" src="img/tick.png" style="height : 20px"><img class= "crossName" src="img/cross.png" style="height : 20px"><p></p>
                             <input class="form-control" type="text" name="phone" placeholder="Phone" id="phone">
                             <img class= "tickPhone" src="img/tick.png" style="height : 20px">
+                            <img class= "crossPhone" src="img/cross.png" style="height : 20px">
                             <p></p>
                             <label for = "gender">Gender:</label>
                             <label class = "radio-inline">
@@ -87,6 +88,7 @@ session_start();
                             <label for ="dob">Date Of Birth :</label>
                             <input class = "form-control" type="Date" name="dob" id ="dob">
                             <img class= "tickDate" src="img/tick.png" style="height : 20px">
+                            <img class= "crossDate" src="img/cross.png" style="height : 20px">
                             <p></p>
                             <label for = "sel1">Personal Interests:</label>
                             <select multiple class = "form-control" id = "sel1" name = "interests[]">
@@ -116,15 +118,19 @@ session_start();
                     <div class = "col-lg-12 col-md-12   col-sm-12 form">
                         <div class = "form-group bg-6">
                             <input class="form-control" type="text" name="street" placeholder="Street Address" id="street" autofocus>
-                            <img class= "tickStreet" src="img/tick.png" style="height : 20px"><p></p>
+                            <img class= "tickStreet" src="img/tick.png" style="height : 20px">
+                            <img class= "crossStreet" src="img/cross.png" style="height : 20px"><p></p>
                             <input class="form-control" type="text" name="city" placeholder="City" id="city">
                             <img class= "tickCity" src="img/tick.png" style="height : 20px">
+                            <img class= "crossCity" src="img/cross.png" style="height : 20px">
                             <p></p>
                             <input class="form-control" type="text" name="state" placeholder="State/Province" id="state">
                             <img class= "tickState" src="img/tick.png" style="height : 20px">
+                            <img class= "crossState" src="img/cross.png" style="height : 20px">
                             <p></p>
                             <input class="form-control" type="text" name="country" placeholder="Country" id="country">
                             <img class="tickCountry" src="img/tick.png" style="height : 20px">
+                            <img class= "crossCountry" src="img/cross.png" style="height : 20px">
                             <p></p>
                             <input type = "submit" name="form3_register" id="form3_next" class="btn btn-primary btn-block button1" value = "Register">
                             <input name = "form3_prev" id = "form3_prev" class="btn btn-default btn-block button1" value = "Back">

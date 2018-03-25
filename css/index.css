@@ -48,49 +48,49 @@ img {
     border-radius: 5px 5px 0 0;
 }
 /*tick marks if the input is correct*/
-.tickEmail { 
+.tickEmail, .crossEmail { 
     display: none;
     position: absolute; top: 27px; right: 17px; 
 }
 
-.tickPass {
+.tickPass, .crossPass {
     display: none;
     position: absolute; top : 71px; right: 17px;
 }
 
-.tickRepass {
+.tickRepass, .crossRepass {
     display: none;
     position: absolute; top: 116px; right: 17px;
 }
-.tickName {
+.tickName, .crossName {
     display: none;
     position: absolute; top: 7px; right: 17px;
 }
-.tickPhone {
+.tickPhone, .crossPhone {
     display: none;
     position: absolute; top: 52px; right: 17px;
 }
-.tickGender {
+.tickGender, .crossGender {
     display: none;
     position: absolute; top: 84px; right: 17px;
 }
-.tickDate {
+.tickDate, .crossDate {
     display: none;
     position: absolute; top: 154px; right: 17px;
 }
-.tickStreet {
+.tickStreet, .crossStreet {
     display: none;
     position: absolute; top: 7px; right: 17px;
 }
-.tickCity {
+.tickCity, .crossCity {
     display: none;
     position: absolute; top: 51px; right: 17px;
 }
-.tickState {
+.tickState, .crossState {
     display: none;
     position: absolute; top: 95px; right: 17px;
 }
-.tickCountry {
+.tickCountry, .crossCountry {
     display: none;
     position: absolute; top: 138px; right: 17px;
 }
