@@ -40,18 +40,19 @@ if (!empty($_SESSION['login'])) {
         die( "Connection failed: " . $conn->connect_error );
     }
     $random = hash('sha256', $pass);
-    $sql = "SELECT id, name, password FROM  user WHERE email = '$email'AND password = '$random' LIMIT 1";
+    $sql = "SELECT id, valid, password FROM  user WHERE email = '$email'AND password = '$random' LIMIT 1";
     $result = $conn->query($sql);
-
+    $row = $result->fetch_assoc();
     if ($result->num_rows == 0) {
         $passErr = "Invalid email id or Password";
         if ($email=="") {
             $passErr = "";
         }
+    } else if ($row['valid'] == 'F') {
+        $passErr = "Please verify your email first!!";
     } else {
-        $row = $result->fetch_assoc();
+        
             $_SESSION['login']['id'] = $row['id'];
-            $_SESSION['login']['name'] = $row['name'];
             header("Location: ../model/dashboard.php");
     }
 }

@@ -17,7 +17,7 @@ if ($conn->connect_error) {
 $id =$_SESSION['login']['id'];
 
 //data from  users is extracted
-$userInfo = "SELECT email FROM  user WHERE id = '$id' LIMIT 1";
+$userInfo = "SELECT email FROM  user WHERE id = '$id'  LIMIT 1";
 $result = $conn->query($userInfo);
 
 // check if query returns no result

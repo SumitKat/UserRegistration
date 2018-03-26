@@ -36,7 +36,7 @@ class DbQuery
     {
         global $sql, $conn;
         if ($conn->query($sql) === true) {
-            echo "New record created successfully";
+            echo "Success!!";
         } else {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }
@@ -54,5 +54,22 @@ class DbQuery
         $sql = "SELECT $value FROM $table where $id1 = '$id2' LIMIT 1";
         $result = $conn->query($sql);
         return $result->fetch_assoc();
+    }
+
+    public function update($table, $array, $id1, $id2)
+    {
+        global $sql , $conn;
+        $i=0;
+        $field = "";
+        foreach ($array as $key => $value) {
+            if ($i < count($array)-1) {
+                $field .= $key."='".$value."',";
+                $i++;
+            } else {
+                $field .= $key."='".$value."'";
+            }
+        }
+        $sql = "UPDATE"." $table"." SET"." $field"." WHERE". " $id1"." ="."'$id2'";
+        $conn->query($sql);
     }
 }

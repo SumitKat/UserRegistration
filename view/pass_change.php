@@ -1,10 +1,7 @@
 <?php
 session_start();
-if (!empty($_SESSION['login'])) {
-    header("Location: ../model/dashboard.php");
-}
+$_SESSION['email'] = $_GET['email'];
 ?>
-
 <!DOCTYPE html>
 <html>
 
@@ -15,6 +12,7 @@ if (!empty($_SESSION['login'])) {
     <link rel = "stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../js/index.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/login.css">
 </head>
     <body>
@@ -42,25 +40,23 @@ if (!empty($_SESSION['login'])) {
             </div>
         </nav>
 
-        <form class = "center-block" name = "loginForm" action = "<?php echo htmlspecialchars("../model/login.php");?>" method = "POST">
+        <form class = "center-block" name = "loginForm" action = "<?php echo htmlspecialchars("../controller/pass_change.php");?>" method = "POST">
             <div class = "container-fluid text-center bg-1 ">
                 <div class = "card col-lg-3  col-lg-offset-0 col-md-4 col-md-offset-4 col-sm-offset-3 col-sm-6">
                     <div class = "row">
                         <div class = "col-lg-12 col-md-12   col-sm-12 form">
                             <div class = "form-group bg-2">
                                 <br>
-                                <label> SIGN IN TO MINDFIRE</label><br>
+                                <label>Enter New Password!!</label><br>
                                 <p></p>
-                                <span class="error"><?php echo isset($emailErr) ? $emailErr : '';?></span>
-                                <input class = "form-control" placeholder="Email" type = "email" name="loginEmail" id = "loginEmail" autofocus>
+                                <input class = "form-control" placeholder="Password" type = "password" name="pass_change1" id = "loginPassword" autofocus>
                                 <p></p>
                                <span class="error"><?php echo isset($passErr) ? $passErr : '';?></span>
-                                <input type = "password" placeholder = "Password" class = "form-control" name = "loginPassword" id = "loginPassword">
+                                <input type = "password" placeholder = "Retype Password" class = "form-control" name = "pass_change2" id = "loginRePassword">
                                  <p></p>
-                                <input type = "submit" name = "login" class="btn btn-primary btn-block" value = "SIGN IN">
+                                <input type = "submit" name = "login" class="btn btn-primary btn-block" value = "Change Password">
                                 <p></p>
-                                <a href ="../view/forgot_pass.php">Forgotten my password</a>
-                                <br>
+                                <span id="ema" style="color: red"></span>
                                 </div>
                         </div>
                     </div>

@@ -9,12 +9,11 @@ $(document).ready(function() {
         var dotpos = email.lastIndexOf(".");
         $("#ema").text("");
 
-        if (email.length ==0 || (atpos<1 || dotpos<atpos+2 || dotpos+2>=email.length)) {
+        if (email.length ==0 || atpos<1 || dotpos<atpos+2 || dotpos+2>=email.length) {
         $("#ema").text("Invalid Email ID. ");
         showCross($(".crossEmail"),$(".tickEmail"));
         errorEmail[0] = 0;
         } else {
-        
         $.ajax({
         	//The URL for the request
         	url: "api/email_check.php",
@@ -33,6 +32,7 @@ $(document).ready(function() {
                     if(errorEmail.length != 3)
                         errorEmail[0] = 1;
                 }
+                
                 $("#ema").text(resp);
             }
         });
@@ -210,6 +210,7 @@ $(document).ready(function() {
         $(".container3").hide();
         $(".container2").show();
     });
+
     // function to check if the field is empty
     function isEmpty(arg) {
         if(arg.length <2) {
